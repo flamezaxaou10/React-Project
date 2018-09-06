@@ -93,7 +93,7 @@ class Table extends React.Component {
   }
 
   componentDidMount() {
-    axios.get('http://172.18.42.222:5582/dht/' + this.props.Table.id).then(function (res) {
+    axios.get('http://172.18.42.222:5582/dht/last24hr/' + this.props.Table.id).then(function (res) {
       this.setState({
         datas: res.data
       })

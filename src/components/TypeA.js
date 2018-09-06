@@ -24,7 +24,7 @@ class TypeA extends React.Component {
       this.setState({
         currentTime: this.state.currentTime + 1,
         speed: Math.floor(Math.random() * 2000) + 1,
-        temp: Math.floor(Math.random() * 100) + 1,
+        temp: Math.floor(Math.random() * 120) - 60,
         humi: Math.floor(Math.random() * 100) + 1,
         aval: Math.floor(Math.random() * 100) + 1,
         prod: Math.floor(Math.random() * 100) + 1,
@@ -84,16 +84,16 @@ class TypeA extends React.Component {
               maxValue={100}
               scaleList={[
                 {
-                  scale: 10,
-                  quantity: 5,
+                  scale: 12,
+                  quantity: 6,
                   startColor: "steelblue",
                   endColor: "cyan"
                 },
                 {
-                  scale: 10,
-                  quantity: 5,
+                  scale: 12,
+                  quantity: 6,
                   startColor: "cyan",
-                  endColor: "orange"
+                  endColor: "steelblue"
                 }
               ]}
             />
@@ -176,7 +176,8 @@ class TypeA extends React.Component {
             <LineChart payload={{
               temp: this.state.temp,
               humi: this.state.humi,
-              timstamp: Date.now()
+              timstamp: Date.now(),
+              width:300
             }} Table={{
               name: "Overall"
             }}/>

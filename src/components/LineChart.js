@@ -114,7 +114,7 @@ class LineChart extends React.Component {
             <Legend />
           </LineChart> */}
           
-          <AreaChart width={300} height={200} data={this.state.datas}
+          <AreaChart width={this.props.payload.width} height={200} data={this.state.datas}
             margin={{top:0, bottom: 0, left: 0, right: 0}}
           >
             <defs>
