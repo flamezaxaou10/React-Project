@@ -88,43 +88,64 @@ class Table extends React.Component {
       typeFilter: 'filterMonth',
       filterDayData: [],
       filterWeekData: [],
-      filterthData: []
+      filterMonthData: []
     }
   }
 
   componentDidMount() {
-    axios.get('http://172.18.42.222:5582/dht/last24hr/' + this.props.Table.id).then(function (res) {
+    axios.get('http://172.18.42.222:5582/dht/last30days/' + this.props.Table.id).then(function (res) {
       this.setState({
-        datas: res.data
+        datas: res.data,
+        filterMonthData: res.data
       })
-      console.log(this.state.datas)
     }.bind(this)).catch(function (error) {
       console.log(error)
+    })
+
+    axios.get('http://172.18.42.222:5582/dht/last24hr/' + this.props.Table.id).then(function (res) {
+      this.setState({
+        filterDayData: res.data
+      })
+    }.bind(this)).catch(function (err) {
+      console.log(err)
+    })
+
+    axios.get('http://172.18.42.222:5582/dht/last7days/' + this.props.Table.id).then(function (res) {
+      this.setState({
+        filterWeekData: res.data
+      })
+    }.bind(this)).catch(function (err) {
+      console.log(err)
     })
   }
 
   formatXAxis = (tickItem) => {
     if (this.state.typeFilter === 'filterDay')
-      return moment(tickItem).format('HH:mm')
+      return moment(tickItem).format('HH:00')
+    else if (this.state.typeFilter === 'filterWeek')
+      return moment(tickItem).format('DD-MMM-YY')
     else if (this.state.typeFilter === 'filterMonth')
       return moment(tickItem).format('DD-MM-YY')
   }
 
   handleFilterDay() {
     this.setState({
-      typeFilter: 'filterDay'
+      typeFilter: 'filterDay',
+      datas: this.state.filterDayData
     })
   }
 
   handleFilterWeek() {
     this.setState({
-      typeFilter: 'filterWeek'
+      typeFilter: 'filterWeek',
+      datas: this.state.filterWeekData
     })
   }
 
   handleFilterMonth() {
     this.setState({
-      typeFilter: 'filterMonth'
+      typeFilter: 'filterMonth',
+      datas: this.state.filterMonthData
     })
   }
 
@@ -198,7 +219,7 @@ class Table extends React.Component {
               reversed={false}
               tickFormatter={this.formatXAxis}
               domain={['dataMin', 'dataMax']}
-              minTickGap={70}
+              minTickGap={20}
             />
             <YAxis />
             <Legend />
