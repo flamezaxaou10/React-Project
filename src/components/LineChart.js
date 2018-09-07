@@ -34,8 +34,6 @@ class LineChart extends React.Component {
     
   }
 
-
-
   formatXAxis = (tickItem) => {
     if (this.state.typeFilter === 'filterDay')
       return moment(tickItem).format('HH:mm')
@@ -62,9 +60,10 @@ class LineChart extends React.Component {
   }
 
   render() {
+    const { payload, Table } = this.props
     return (
       <div className="Table1" >
-        <h4>{this.props.Table.name}</h4>
+        <h4>{Table.name}</h4>
         <div className="col-12">
           <div className="btn-group mb-2" role="group" aria-label="DayMonthYear">
             <button type="button"
@@ -114,7 +113,7 @@ class LineChart extends React.Component {
             <Legend />
           </LineChart> */}
           
-          <AreaChart width={this.props.payload.width} height={200} data={this.state.datas}
+          <AreaChart width={payload.width} height={200} data={this.state.datas}
             margin={{top:0, bottom: 0, left: 0, right: 0}}
           >
             <defs>

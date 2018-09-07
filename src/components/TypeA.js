@@ -36,11 +36,16 @@ class TypeA extends React.Component {
     }, 3000)
   }
 
+  componentWillUnmount() {
+    clearInterval(this.interval)
+  }
+
   render() {
     let machineId = this.props.match.params.machineId
     let machines = MachineStore.machines
+    console.log(machines)
     let machine = machines.filter((machine) =>
-      machine.machineId === parseFloat(machineId)
+      parseFloat(machine.machineId) === parseFloat(machineId)
     )
     return (
       <div className="TypeA text-white justify-content-center">
@@ -80,18 +85,18 @@ class TypeA extends React.Component {
               enableAnimation={true}
               title="Temp"
               unit=" *C"
-              minValue={0}
-              maxValue={100}
+              minValue={-60}
+              maxValue={60}
               scaleList={[
                 {
-                  scale: 12,
-                  quantity: 6,
+                  scale: 10,
+                  quantity: 5,
                   startColor: "steelblue",
                   endColor: "cyan"
                 },
                 {
-                  scale: 12,
-                  quantity: 6,
+                  scale: 10,
+                  quantity: 5,
                   startColor: "cyan",
                   endColor: "steelblue"
                 }
@@ -172,15 +177,15 @@ class TypeA extends React.Component {
           </div>
           <div className="col-sm-12 col-md-6 col-lg-4">
             Admin : Flame
-            
+
             <LineChart payload={{
               temp: this.state.temp,
               humi: this.state.humi,
               timstamp: Date.now(),
-              width:300
+              width: 300
             }} Table={{
               name: "Overall"
-            }}/>
+            }} />
             <div className="form-group">
               <label htmlFor="Note">Additional Note</label>
               <textarea className="form-control" id="Note" rows="5" placeholder="Put Your Note Here..."></textarea>

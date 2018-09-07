@@ -37,13 +37,16 @@ class TypeB extends React.Component {
         oee: (((this.state.aval / 100) * (this.state.prod / 100) * (this.state.qual / 100)) * 100).toFixed(2)
       })
     }, 4000)
+  }
 
+  componentWillUnmount() {
+    clearInterval(this.interval)
   }
   render() {
     let machineId = this.props.match.params.machineId
     let machines = MachineStore.machines
     let machine = machines.filter((machine) =>
-      machine.machineId === parseFloat(machineId)
+      parseFloat(machine.machineId) === parseFloat(machineId)
     )
     let arrow = 'up text-success'
     if (this.state.oee - this.state.prevOee >= 0) arrow = 'up text-success'

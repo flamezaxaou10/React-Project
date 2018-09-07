@@ -4,6 +4,7 @@ import { observer } from 'mobx-react'
 
 @observer
 class CreateMachine extends React.Component {
+  
   addMachine = () => {
     let payload = {
       machineId: this.state.machineId,
@@ -16,8 +17,10 @@ class CreateMachine extends React.Component {
       machineType: 'A'
     })
     this.props.MachineStore.addMachine(payload)
+    this.props.MachineStore.addMachineToDB(payload)
     this.props.callback()
   }
+
   constructor(props) {
     super(props)
     this.state = {
@@ -97,6 +100,9 @@ class CreateMachine extends React.Component {
                       <option value="C">Type C</option>
                     </select>
                   </div>
+                </div>
+                <div className="">
+
                 </div>
               </div>
               <div className="modal-footer">
