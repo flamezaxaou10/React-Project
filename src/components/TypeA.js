@@ -45,7 +45,7 @@ class TypeA extends React.Component {
     let machines = MachineStore.machines
     console.log(machines)
     let machine = machines.filter((machine) =>
-      parseFloat(machine.machineId) === parseFloat(machineId)
+      machine._id === (machineId)
     )
     return (
       <div className="TypeA text-white justify-content-center">

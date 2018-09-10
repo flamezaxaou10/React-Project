@@ -6,9 +6,8 @@ import axios from 'axios'
 let server = 'http://localhost:5582/machine'
 
 class MachineStore {
-
+  @observable visualId = 0
   @observable getData = true
-  @observable nextId = 0
   @observable machines = []
   @observable listMachine = this.showMachine()
 
@@ -18,12 +17,16 @@ class MachineStore {
   }
 
   addMachineToDB(payload) {
-    axios.post(server + '/', {
-      payload,
-      headers: {
-        'Access-Control-Allow-Origin': '*',
-      }
-    }).then(function (res) {
+    this.machines = []
+    axios.post(server + '/', payload).then(function (res) {
+      console.log(res)
+    }).catch(function (err) {
+      console.log(err)
+    })
+  }
+
+  delMachineToDB(_id) {
+    axios.delete(server + '/' + _id).then(function (res) {
       console.log(res)
     }).catch(function (err) {
       console.log(err)
@@ -32,7 +35,7 @@ class MachineStore {
 
   showMachine() {
     return this.machines.map((machine) =>
-      <Machine key={machine.machineId} machine={machine} />
+      <Machine key={machine._id} machine={machine} />
     )
   }
 

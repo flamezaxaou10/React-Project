@@ -7,16 +7,14 @@ class CreateMachine extends React.Component {
   
   addMachine = () => {
     let payload = {
-      machineId: this.state.machineId,
       machineName: this.state.machineName,
       machineType: this.state.machineType
     }
     this.setState({
-      machineId: this.props.MachineStore.nextId++,
       machineName: '',
       machineType: 'A'
     })
-    this.props.MachineStore.addMachine(payload)
+    this.props.MachineStore.getData = true
     this.props.MachineStore.addMachineToDB(payload)
     this.props.callback()
   }
@@ -24,7 +22,6 @@ class CreateMachine extends React.Component {
   constructor(props) {
     super(props)
     this.state = {
-      machineId: this.props.MachineStore.nextId,
       machineName: '',
       machineType: 'A'
     }
@@ -55,7 +52,7 @@ class CreateMachine extends React.Component {
                 </button>
               </div>
               <div className="modal-body">
-                <div className="form-group row">
+                {/* <div className="form-group row">
                   <label htmlFor="machineId" className="col-3 col-form-label">
                     Machine ID :
                 </label>
@@ -68,7 +65,7 @@ class CreateMachine extends React.Component {
                       value={this.state.machineId}
                     />
                   </div>
-                </div>
+                </div> */}
                 <div className="form-group row">
                   <label htmlFor="machineName" className="col-3 col-form-label">
                     Machine Name :

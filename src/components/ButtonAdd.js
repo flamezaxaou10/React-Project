@@ -2,7 +2,7 @@ import React from 'react'
 import circleadd from '../assets/circleadd.png'
 import './components.css'
 import CreateMachine from './CreateMachine'
-import { observer } from 'mobx-react';
+import { observer } from 'mobx-react'
 
 @observer
 class ButtonAdd extends React.Component {

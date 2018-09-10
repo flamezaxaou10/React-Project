@@ -28,9 +28,9 @@ class Main extends React.Component {
   }
 
   newRender = () => {
+    this.componentWillMount()
     this.setState({
       listMachine: MachineStore.listMachine,
-
     })
   }
 

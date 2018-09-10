@@ -46,7 +46,7 @@ class TypeB extends React.Component {
     let machineId = this.props.match.params.machineId
     let machines = MachineStore.machines
     let machine = machines.filter((machine) =>
-      parseFloat(machine.machineId) === parseFloat(machineId)
+      (machine._id) === (machineId)
     )
     let arrow = 'up text-success'
     if (this.state.oee - this.state.prevOee >= 0) arrow = 'up text-success'
