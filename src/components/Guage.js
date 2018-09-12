@@ -3,7 +3,7 @@ import MachineStore from '../store/MachineStore'
 import Gauge from 'react-radial-gauge'
 import ReactSpeedometer from "react-d3-speedometer"
 import CanvasGauge from 'react-canvas-gauge'
-import ReactGuage from 'react-d3-guage';
+import ReactGuage from 'react-d3-guage'
 
 class TypeA extends React.Component {
   constructor(props) {
