@@ -1,5 +1,6 @@
 import React from 'react'
 import { observer } from 'mobx-react'
+import NewWidget from './NewWidget'
 // import { Link } from 'react-router-dom'
 
 @observer
@@ -85,7 +86,7 @@ class CreateMachine extends React.Component {
                 <div className="form-group row">
                   <label htmlFor="machineType" className="col-3 col-form-label">
                     Type :
-                </label>
+                  </label>
                   <div className="col-9">
                     <select className="custom-select" 
                       name="machineType"
@@ -98,8 +99,12 @@ class CreateMachine extends React.Component {
                     </select>
                   </div>
                 </div>
-                <div className="">
-
+                <hr/>
+                <div className="row container">
+                  <h4 htmlFor="" className="col-12">
+                    Widgets
+                  </h4>
+                  <NewWidget />
                 </div>
               </div>
               <div className="modal-footer">

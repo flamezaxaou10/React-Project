@@ -25,7 +25,7 @@ class ChartDB extends React.Component {
             }} />
           </div>
         </div>
-        <div className="row mb-4">
+        {/* <div className="row mb-4">
           <div className="col-12">
             <Table Table={{
               id: "table2",
@@ -74,7 +74,7 @@ class ChartDB extends React.Component {
               mapType: ""
             }} />
           </div>
-        </div>
+        </div> */}
       </div>
     )
   }
@@ -86,37 +86,56 @@ class Table extends React.Component {
     this.state = {
       datas: [],
       typeFilter: 'filterMonth',
-      filterDayData: [],
+      filterDayData: [
+        {
+          desired:{
+            temperature:{
+              celsius:{
+                value: 23
+              }
+            },
+            humidity: {
+              value: 60
+            }
+          },
+          timestamp: Date.now()
+        }
+      ],
       filterWeekData: [],
-      filterMonthData: []
+      filterMonthData: [],
     }
   }
 
   componentDidMount() {
     axios.get('http://172.18.42.222:5582/dht/last30days/' + this.props.Table.id).then(function (res) {
       this.setState({
-        datas: res.data,
-        filterMonthData: res.data
+        datas: res.data[0],
+        filterMonthData: res.data[0],
+        filterWeekData: res.data[1],
+        filterDayData: this.state.filterDayData.concat(res.data[2]),
       })
+      console.log(res.data[0])
+      console.log(res.data[1])
+      console.log(res.data[2])
     }.bind(this)).catch(function (error) {
       console.log(error)
     })
 
-    axios.get('http://172.18.42.222:5582/dht/last24hr/' + this.props.Table.id).then(function (res) {
-      this.setState({
-        filterDayData: res.data
-      })
-    }.bind(this)).catch(function (err) {
-      console.log(err)
-    })
+    // axios.get('http://172.18.42.222:5582/dht/last24hr/' + this.props.Table.id).then(function (res) {
+    //   this.setState({
+    //     filterDayData: res.data
+    //   })
+    // }.bind(this)).catch(function (err) {
+    //   console.log(err)
+    // })
 
-    axios.get('http://172.18.42.222:5582/dht/last7days/' + this.props.Table.id).then(function (res) {
-      this.setState({
-        filterWeekData: res.data
-      })
-    }.bind(this)).catch(function (err) {
-      console.log(err)
-    })
+    // axios.get('http://172.18.42.222:5582/dht/last24hr/' + this.props.Table.id).then(function (res) {
+    //   this.setState({
+    //     filterWeekData: res.data
+    //   })
+    // }.bind(this)).catch(function (err) {
+    //   console.log(err)
+    // })
   }
 
   formatXAxis = (tickItem) => {
@@ -174,33 +193,6 @@ class Table extends React.Component {
               Last Month
             </button>
           </div>
-          {/* <LineChart width={1024} height={320} data={this.state.datas} margin={{ top: 0, right: 0, bottom: 0, left: 0 }}>
-            <Line
-              type="monotone"
-              name="Temperature"
-              dataKey="desired.temperature.celsius.value"
-              stroke={this.props.Table.color[0]}
-              dot={false}
-            />
-            <Line
-              type="monotone"
-              name="Humidity"
-              dataKey="desired.humidity.value"
-              stroke={this.props.Table.color[1]}
-              dot={false}
-            />
-            <CartesianGrid stroke="grey" strokeDasharray="2 2" />
-            <XAxis
-              dataKey="timestamp"
-              reversed={true}
-              tickFormatter={this.formatXAxis}
-              domain={[0, 'dataMax']}
-              minTickGap={70}
-            />
-            <YAxis />
-            <Tooltip />
-            <Legend />
-          </LineChart> */}
 
           <AreaChart width={1024} height={320} data={this.state.datas}
             margin={{ top: 0, right: 0, left: 0, bottom: 0 }}>
@@ -219,7 +211,6 @@ class Table extends React.Component {
               reversed={false}
               tickFormatter={this.formatXAxis}
               domain={['dataMin', 'dataMax']}
-              minTickGap={20}
             />
             <YAxis />
             <Legend />
