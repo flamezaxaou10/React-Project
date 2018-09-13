@@ -86,21 +86,7 @@ class Table extends React.Component {
     this.state = {
       datas: [],
       typeFilter: 'filterMonth',
-      filterDayData: [
-        {
-          desired:{
-            temperature:{
-              celsius:{
-                value: 23
-              }
-            },
-            humidity: {
-              value: 60
-            }
-          },
-          timestamp: Date.now()
-        }
-      ],
+      filterDayData: [],
       filterWeekData: [],
       filterMonthData: [],
     }
@@ -112,7 +98,7 @@ class Table extends React.Component {
         datas: res.data[0],
         filterMonthData: res.data[0],
         filterWeekData: res.data[1],
-        filterDayData: this.state.filterDayData.concat(res.data[2]),
+        filterDayData: res.data[2],
       })
       console.log(res.data[0])
       console.log(res.data[1])
