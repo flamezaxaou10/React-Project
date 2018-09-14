@@ -1,6 +1,7 @@
 import React from 'react'
 import './components.css'
 import circleadd from '../assets/circleadd.png'
+import WidgetStore from '../store/WidgetStore'
 
 class NewWidget extends React.Component {
   render() {
@@ -10,7 +11,7 @@ class NewWidget extends React.Component {
           data-toggle="modal" data-target=".NewWidget" >
           <img width="60px" src={circleadd} alt="" />
         </button>
-        <AddWidget />
+        <AddWidget machineId={this.props.machineId} />
       </div>
     )
   }
@@ -46,11 +47,8 @@ class AddWidget extends React.Component {
                 </div>
               </div>
               <div className="row">
-                <FormSelected Selected="Guage" />
+                <FormSelected Selected="Guage" machineId={this.props.machineId} />
               </div>
-            </div>
-            <div className="modal-footer">
-              <button className="btn btn-secondary">Add</button>
             </div>
           </div>
         </div>
@@ -62,55 +60,58 @@ class AddWidget extends React.Component {
 class FormSelected extends React.Component {
   render() {
     if (this.props.Selected === 'Guage') {
-      return <FormGuage />
+      return <FormGauge machineId={this.props.machineId} />
     }
     return <h1>SS</h1>
   }
 }
 
-class FormGuage extends React.Component {
+class FormGauge extends React.Component {
   constructor(props) {
     super(props)
     this.state = {
-      payload: {
-        title: 'Test',
-        value: 0,
-        unit: '',
-        minvalue: '0',
-        maxvalue: '100',
-        setColor: [],
-        theme: 'light',
-        mode: 'guage',
-        enableAnimation: true
-      }
+      title: 'Test',
+      value: 0,
+      unit: '',
+      minvalue: '0',
+      maxvalue: '100',
+      setColor: '',
+      theme: 'light',
+      mode: 'guage',
+      enableAnimation: true,
+      machineId: this.props.machineId
     }
-    this.handlePayload = this.handlePayload.bind(this);
+    this.handlePayload = this.handlePayload.bind(this)
   }
 
   handlePayload(e) {
     this.setState({
-      payload: {
         [e.target.name]: e.target.value
-      }
     })
   }
 
-  handleSubmit(event) {
-    event.preventDefault();
-    const data = new FormData(event.target)
-
-    fetch('/api/form-submit-url', {
-      method: 'POST',
-      body: data,
-    })
-    
+  handleSubmit(e) {
+    e.preventDefault()
+    let payload = {
+      title: this.state.title,
+      value: this.state.value,
+      unit: this.state.unit,
+      minvalue: this.state.minvalue,
+      maxvalue: this.state.maxvalue,
+      setColor: this.state.setColor,
+      theme: 'light',
+      mode: 'gauge',
+      enableAnimation: true
+    }
+    console.log(payload)
+    WidgetStore.addWidgetToDB(this.props.machineId, payload)
+    window.location.reload()
   }
   render() {
-    const payload = this.state.payload
+    const payload = this.state
     return (
-
       <div className="FormGuage container">
-        <form onSubmit={this.handleSubmit}>
+        <form onSubmit={this.handleSubmit.bind(this)}>
           <div className="form-group row">
             <label htmlFor="machineType" className="col-3 col-form-label">
               Title :
@@ -195,12 +196,17 @@ class FormGuage extends React.Component {
               />
             </div>
           </div>
-          <div>
-            <input type="submit" name="submit" />
+          <div className="row justify-content-end">
+            <div className="col-3">
+              <button type="submit"
+                className="btn btn-secondary btn-block"
+              >
+                Add
+              </button>
+            </div>
           </div>
         </form>
       </div>
-
     )
   }
 }
