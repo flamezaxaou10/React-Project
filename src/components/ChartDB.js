@@ -198,7 +198,9 @@ class Table extends React.Component {
               tickFormatter={this.formatXAxis}
               domain={['dataMin', 'dataMax']}
             />
-            <YAxis />
+            <YAxis 
+              domain={[0, 100]}
+            />
             <Legend />
             <CartesianGrid strokeDasharray="3 3" />
             <Tooltip />

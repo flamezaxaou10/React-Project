@@ -1,6 +1,5 @@
 import React from 'react'
 import { observer } from 'mobx-react'
-import NewWidget from './NewWidget'
 // import { Link } from 'react-router-dom'
 
 @observer
@@ -18,6 +17,7 @@ class CreateMachine extends React.Component {
     this.props.MachineStore.getData = true
     this.props.MachineStore.addMachineToDB(payload)
     this.props.callback()
+    //window.location.reload()
   }
 
   constructor(props) {
@@ -98,13 +98,6 @@ class CreateMachine extends React.Component {
                       <option value="C">Type C</option>
                     </select>
                   </div>
-                </div>
-                <hr/>
-                <div className="row container">
-                  <h4 htmlFor="" className="col-12">
-                    Widgets
-                  </h4>
-                  <NewWidget />
                 </div>
               </div>
               <div className="modal-footer">
