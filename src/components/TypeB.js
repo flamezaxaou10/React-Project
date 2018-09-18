@@ -4,6 +4,7 @@ import './components.css'
 import LineChart from './LineChart'
 import ReactSpeedometer from "react-d3-speedometer"
 import CanvasGauge from 'react-canvas-gauge'
+import { Line, Circle } from 'rc-progress'
 
 class TypeB extends React.Component {
   constructor(props) {
@@ -199,7 +200,7 @@ class TypeB extends React.Component {
                   temp: this.state.temp,
                   humi: this.state.humi,
                   timstamp: Date.now(),
-                  width:600
+                  width: 600
                 }} Table={{
                   name: "Overall"
                 }} />
@@ -216,6 +217,26 @@ class TypeB extends React.Component {
                 </div>
               </div>
             </div>
+          </div>
+          <div className="col-3 text-white">
+            <h5>Progress Bar : {this.state.humi} %</h5>
+            <Line 
+              percent={this.state.humi} 
+              strokeWidth="3" 
+              trailWidth="3"
+              strokeColor="lightblue" 
+              trailColor="white"
+              strokeLinecap="round"
+
+            />
+            <Circle 
+              percent={this.state.humi}  
+              strokeWidth="3"
+              trailWidth="3" 
+              strokeColor="lightblue" 
+              trailColor="white"
+              strokeLinecap="round"
+            />
           </div>
         </div>
       </div>

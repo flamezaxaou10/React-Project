@@ -34,6 +34,16 @@ class Main extends React.Component {
     })
   }
 
+  componentWillUnmount () {
+    console.log("Unmount")
+    this.setState({
+      listMachine: []
+    })
+    MachineStore.getData = true
+    MachineStore.machines = []
+    MachineStore.listMachine = []
+  }
+
 
   render() {
 

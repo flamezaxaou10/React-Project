@@ -1,7 +1,10 @@
 import React from 'react'
 import './components.css'
 import circleadd from '../assets/circleadd.png'
-import WidgetStore from '../store/WidgetStore'
+import FormGauge from '../components/FormWidgets/FormGauge'
+import FormProgress from '../components/FormWidgets/FormProgress'
+import FormCardBox from '../components/FormWidgets/FormCardBox'
+import FormGaugeSpeed from '../components/FormWidgets/FormGaugeSpeed'
 
 class NewWidget extends React.Component {
   render() {
@@ -19,7 +22,21 @@ class NewWidget extends React.Component {
 
 
 class AddWidget extends React.Component {
+  constructor(props) {
+    super(props)
+    this.state = {
+      selected: 'Gauge'
+    }
+  }
+
+  handleSelected(e) {
+    this.setState({
+      selected: e.target.value
+    })
+  }
+
   render() {
+    const selected = this.state.selected
     return (
       <div className="modal fade NewWidget" tabIndex="-1" role="dialog" aria-hidden="false" >
         <div className="modal-dialog modal-lg">
@@ -38,16 +55,17 @@ class AddWidget extends React.Component {
                 <div className="col-9">
                   <select className="custom-select"
                     name="widgetType"
+                    onChange={this.handleSelected.bind(this)}
                   >
-                    <option value="Guage">Guage</option>
-                    <option value="GuageSpeed">Guage Speed</option>
+                    <option value="Gauge">Gauge</option>
+                    <option value="GaugeSpeed">Gauge Speed</option>
                     <option value="Progress">Progress</option>
                     <option value="CardBox">Card Box</option>
                   </select>
                 </div>
               </div>
               <div className="row">
-                <FormSelected Selected="Guage" machineId={this.props.machineId} />
+                <FormSelected Selected={selected} machineId={this.props.machineId} />
               </div>
             </div>
           </div>
@@ -59,156 +77,19 @@ class AddWidget extends React.Component {
 
 class FormSelected extends React.Component {
   render() {
-    if (this.props.Selected === 'Guage') {
+    if (this.props.Selected === 'Gauge') {
       return <FormGauge machineId={this.props.machineId} />
+    } else if (this.props.Selected === 'Progress') {
+      return <FormProgress machineId={this.props.machineId} />
+    } else if (this.props.Selected === 'CardBox') {
+      return <FormCardBox machineId={this.props.machineId} />
+    } else if (this.props.Selected === 'GaugeSpeed') {
+      return <FormGaugeSpeed machineId={this.props.machineId} />
+    } else {
+      return <h1>SS</h1>
     }
-    return <h1>SS</h1>
   }
 }
 
-class FormGauge extends React.Component {
-  constructor(props) {
-    super(props)
-    this.state = {
-      title: 'Test',
-      value: 0,
-      unit: '',
-      minvalue: '0',
-      maxvalue: '100',
-      setColor: '',
-      theme: 'light',
-      mode: 'guage',
-      enableAnimation: true,
-      machineId: this.props.machineId
-    }
-    this.handlePayload = this.handlePayload.bind(this)
-  }
-
-  handlePayload(e) {
-    this.setState({
-        [e.target.name]: e.target.value
-    })
-  }
-
-  handleSubmit(e) {
-    e.preventDefault()
-    let payload = {
-      title: this.state.title,
-      value: this.state.value,
-      unit: this.state.unit,
-      minvalue: this.state.minvalue,
-      maxvalue: this.state.maxvalue,
-      setColor: this.state.setColor,
-      theme: 'light',
-      mode: 'gauge',
-      enableAnimation: true
-    }
-    console.log(payload)
-    WidgetStore.addWidgetToDB(this.props.machineId, payload)
-    window.location.reload()
-  }
-  render() {
-    const payload = this.state
-    return (
-      <div className="FormGuage container">
-        <form onSubmit={this.handleSubmit.bind(this)}>
-          <div className="form-group row">
-            <label htmlFor="machineType" className="col-3 col-form-label">
-              Title :
-          </label>
-            <div className="col-9">
-              <input
-                name="title"
-                type="text"
-                className="form-control"
-                value={payload.title}
-                onChange={this.handlePayload}
-              />
-            </div>
-          </div>
-          <div className="form-group row">
-            <label htmlFor="machineType" className="col-3 col-form-label">
-              Value :
-          </label>
-            <div className="col-9">
-              <input
-                name="value"
-                type="text"
-                className="form-control"
-                value={payload.value}
-                onChange={this.handlePayload}
-              />
-            </div>
-          </div>
-          <div className="form-group row">
-            <label htmlFor="machineType" className="col-3 col-form-label">
-              Unit :
-          </label>
-            <div className="col-9">
-              <input
-                name="unit"
-                type="text"
-                className="form-control"
-                value={payload.unit}
-                onChange={this.handlePayload}
-              />
-            </div>
-          </div>
-          <div className="form-group row">
-            <label htmlFor="machineType" className="col-3 col-form-label">
-              Min Value :
-          </label>
-            <div className="col-9">
-              <input
-                name="minvalue"
-                type="text"
-                className="form-control"
-                value={payload.minvalue}
-                onChange={this.handlePayload}
-              />
-            </div>
-          </div>
-          <div className="form-group row">
-            <label htmlFor="machineType" className="col-3 col-form-label">
-              Max Value :
-          </label>
-            <div className="col-9">
-              <input
-                name="maxvalue"
-                type="text"
-                className="form-control"
-                value={payload.maxvalue}
-                onChange={this.handlePayload}
-              />
-            </div>
-          </div>
-          <div className="form-group row">
-            <label htmlFor="machineType" className="col-3 col-form-label">
-              set Color :
-          </label>
-            <div className="col-9">
-              <textarea
-                name="setColor"
-                type="textarea"
-                className="form-control"
-                value={payload.setColor}
-                onChange={this.handlePayload}
-              />
-            </div>
-          </div>
-          <div className="row justify-content-end">
-            <div className="col-3">
-              <button type="submit"
-                className="btn btn-secondary btn-block"
-              >
-                Add
-              </button>
-            </div>
-          </div>
-        </form>
-      </div>
-    )
-  }
-}
 
 export default NewWidget

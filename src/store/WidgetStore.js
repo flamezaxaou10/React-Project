@@ -2,8 +2,11 @@ import React from 'react'
 import axios from 'axios'
 import { observable } from 'mobx'
 import Gauge from '../components/Widgets/Gauge'
+import Progress from '../components/Widgets/Progress'
+import CardBox from '../components/Widgets/CardBox'
+import GaugeSpeed from '../components/Widgets/GaugeSpeed'
 
-let server = "http://localhost:5582/machine"
+let server = "http://localhost:5582/widget"
 
 class WidgetStore {
   @observable widgets = []
@@ -16,7 +19,19 @@ class WidgetStore {
   }
 
   addWidgetToDB(_id, payload) {
-    axios.put(server + '/widgets/' + _id, payload).then(function (res) {
+    this.widgets = []
+    axios.post(server + '/', {
+      machineId: _id,
+      widget: payload
+    }).then(function (res) {
+      console.log(res)
+    }).catch(function (err) {
+      console.log(err)
+    })
+  }
+
+  delWidgetToDB(widgetId) {
+    axios.delete(server + '/' + widgetId).then(function (res) {
       console.log(res)
     }).catch(function (err) {
       console.log(err)
@@ -24,9 +39,17 @@ class WidgetStore {
   }
 
   showWidgets() {
-    return this.widgets.map((widget) =>
-      <Gauge key={widget.title} payload={widget} />
-    )
+    return this.widgets.map((widget) => {
+      if (widget.widget.typeWidget === "Gauge")
+        return <Gauge key={widget._id} payload={widget.widget} widgetId={widget._id} />
+      else if (widget.widget.typeWidget === "Progress")
+        return <Progress key={widget._id} payload={widget.widget} widgetId={widget._id} />
+      else if (widget.widget.typeWidget === "CardBox")
+        return <CardBox key={widget._id} payload={widget.widget} widgetId={widget._id} />
+      else if (widget.widget.typeWidget === 'GaugeSpeed') 
+        return <GaugeSpeed key={widget._id} payload={widget.widget}  widgetId={widget._id} />
+      else return <h1 className="text-white">No Show</h1>
+    })
   }
 }
 

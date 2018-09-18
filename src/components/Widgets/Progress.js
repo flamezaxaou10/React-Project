@@ -7,11 +7,12 @@ class Gauge extends React.Component {
     const payload = this.props.payload
     const widgetId = this.props.widgetId
     return (
-      <div className="Guage col-xl-3 col-lg-4 col-md-6 col-sm-12 text-body mb-3">
-        <div className="card border-success shadow rounded-0 border-10">
+      <div className="Progress col-xl-3 col-lg-4 col-md-6 col-sm-12 text-body mb-3">
+        <div className="card border-secondary shadow rounded-0 border-10">
           <h5 className="card-header">{payload.title}</h5>
           <div className="card-body">
             <CanvasGauge
+              className="mx-0 px-0"
               value={parseInt(payload.value, 10)}
               theme={payload.theme}
               mode={payload.mode}
