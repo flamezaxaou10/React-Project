@@ -4,7 +4,8 @@ import { Redirect } from 'react-router-dom'
 
 class DeleteWidget extends React.Component {
   render () {
-    WidgetStore.delWidgetToDB(this.props.match.params.widgetId)
+    const widgetId = this.props.match.params.widgetId
+    WidgetStore.delWidgetToDB(widgetId)
     return <Redirect to='/' />
   }
 }

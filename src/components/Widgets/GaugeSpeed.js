@@ -7,14 +7,14 @@ class Gauge extends React.Component {
     const payload = this.props.payload
     const widgetId = this.props.widgetId
     return (
-      <div className="GaugeSpeed col-xl-4 col-lg-4 col-md-6 col-sm-12 text-body mb-3">
-        <div className="card border-secondary shadow rounded-0 border-10">
+      <div className="GaugeSpeed col-xl-3 col-lg-4 col-md-6 col-sm-12 text-body mb-3">
+        <div className="card border-secondary shadow rounded-0 border-10 widgetCard">
           <h5 className="card-header">{payload.title}</h5>
           <div className="card-body">
             <ReactSpeedometer
               value={parseFloat(payload.value)}
-              width={(payload.width)}
-              height={(payload.height)}
+              width={210}
+              height={150}
               minValue={parseFloat(payload.minValue)}
               maxValue={parseFloat(payload.maxValue)}
               segments={parseInt(payload.segments, 10)}

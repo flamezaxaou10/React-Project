@@ -9,7 +9,7 @@ class Machine extends React.Component {
     let machineType = this.props.machine.machineType
     return (
       <div className="card col-lg-3 col-md-4 col-sm-6 m-2">
-        <Link to={`/Type` + machineType + `/` + machineId} className="card-link">
+        <Link to={`/Type` + machineType + `/` + machineId } className="card-link">
           <img className="card-img-top p-2" src={machinepng} alt="" />
           <div className="card-body">
             <h4 className="card-title">{machineName}: {machineType}</h4>

@@ -8,7 +8,7 @@ class Gauge extends React.Component {
     const widgetId = this.props.widgetId
     return (
       <div className="Guage col-xl-3 col-lg-4 col-md-6 col-sm-12 text-body mb-3">
-        <div className="card border-success shadow rounded-0 border-10">
+        <div className="card border-success shadow rounded-0 border-10 widgetCard">
           <h5 className="card-header">{payload.title}</h5>
           <div className="card-body">
             <CanvasGauge

@@ -1,10 +1,12 @@
 import React from 'react'
-import MachineStore from '../store/MachineStore'
 import './components.css'
 import LineChart from './LineChart'
 import ReactSpeedometer from "react-d3-speedometer"
 import CanvasGauge from 'react-canvas-gauge'
-import { Line, Circle } from 'rc-progress'
+import axios from 'axios'
+import CNC from '../assets/CNC.jpg'
+
+let server = 'http://172.18.42.220:5582/machine'
 
 class TypeB extends React.Component {
   constructor(props) {
@@ -18,7 +20,12 @@ class TypeB extends React.Component {
       prod: 0,
       qual: 0,
       currentTime: 1,
-      prevOee: 0
+      prevOee: 0,
+      machine: {
+        machineId: this.props.match.params.machineId,
+        machineName: 'Loading...',
+        machineType: 'Loading...'
+      }
     }
   }
 
@@ -27,7 +34,7 @@ class TypeB extends React.Component {
       this.setState({
         currentTime: this.state.currentTime + 1,
         speed: Math.floor(Math.random() * 2000) + 1,
-        temp: Math.floor(Math.random() * 120) - 60,
+        temp: Math.floor(Math.random() * 100) + 1,
         humi: Math.floor(Math.random() * 100) + 1,
         aval: Math.floor(Math.random() * 100) + 1,
         prod: Math.floor(Math.random() * 100) + 1,
@@ -37,18 +44,26 @@ class TypeB extends React.Component {
       this.setState({
         oee: (((this.state.aval / 100) * (this.state.prod / 100) * (this.state.qual / 100)) * 100).toFixed(2)
       })
-    }, 4000)
+    }, 8000)
+
+    axios.get(server + '/' + this.state.machine.machineId).then(function (res) {
+      this.setState({
+        machine: {
+          machineId: res.data._id,
+          machineName: res.data.machineName,
+          machineType: res.data.machineType
+        }
+      })
+    }.bind(this)).catch(function (err) {
+      console.log(err)
+    })
   }
 
   componentWillUnmount() {
     clearInterval(this.interval)
   }
   render() {
-    let machineId = this.props.match.params.machineId
-    let machines = MachineStore.machines
-    let machine = machines.filter((machine) =>
-      (machine._id) === (machineId)
-    )
+    const machine = this.state.machine
     let arrow = 'up text-success'
     if (this.state.oee - this.state.prevOee >= 0) arrow = 'up text-success'
     else arrow = 'down text-danger'
@@ -57,13 +72,13 @@ class TypeB extends React.Component {
       <div className="TypeB text-white justify-content-center">
         <div className="row mb-5">
           <div className="col-4">
-            <h4>Machine ID : {machineId}</h4>
+            <h4>Machine ID : {machine.machineId}</h4>
           </div>
           <div className="col-4">
-            <h4>Machine Name : {machine[0].machineName}</h4>
+            <h4>Machine Name : {machine.machineName}</h4>
           </div>
           <div className="col-4">
-            <h4>Machine Type : {machine[0].machineType}</h4>
+            <h4>Machine Type : {machine.machineType}</h4>
           </div>
         </div>
         <div className="row text-body">
@@ -134,18 +149,18 @@ class TypeB extends React.Component {
                   enableAnimation={true}
                   title="Temp"
                   unit=" *C"
-                  minValue={-60}
-                  maxValue={60}
+                  minValue={0}
+                  maxValue={100}
                   scaleList={[
                     {
-                      scale: 12,
-                      quantity: 6,
+                      scale: 10,
+                      quantity: 5,
                       startColor: "steelblue",
                       endColor: "cyan"
                     },
                     {
-                      scale: 12,
-                      quantity: 6,
+                      scale: 10,
+                      quantity: 5,
                       startColor: "cyan",
                       endColor: "steelblue"
                     }
@@ -218,25 +233,16 @@ class TypeB extends React.Component {
               </div>
             </div>
           </div>
+          <div className="col-8 mt-4 pb-3">
+            <div className="card border-primary border-10 shadow rounded-0">
+              <h6 className="card-header">CNC Image Camera #1</h6>
+              <div className="card-body">
+                <img className="img-fluid img-thumbnail" src={CNC} width={500} height={300} alt="CNC"/>
+              </div>
+            </div>
+          </div>
           <div className="col-3 text-white">
             <h5>Progress Bar : {this.state.humi} %</h5>
-            <Line 
-              percent={this.state.humi} 
-              strokeWidth="3" 
-              trailWidth="3"
-              strokeColor="lightblue" 
-              trailColor="white"
-              strokeLinecap="round"
-
-            />
-            <Circle 
-              percent={this.state.humi}  
-              strokeWidth="3"
-              trailWidth="3" 
-              strokeColor="lightblue" 
-              trailColor="white"
-              strokeLinecap="round"
-            />
           </div>
         </div>
       </div>

@@ -5,6 +5,8 @@ import FormGauge from '../components/FormWidgets/FormGauge'
 import FormProgress from '../components/FormWidgets/FormProgress'
 import FormCardBox from '../components/FormWidgets/FormCardBox'
 import FormGaugeSpeed from '../components/FormWidgets/FormGaugeSpeed'
+import FormProgressBar from '../components/FormWidgets/FormProgressBar'
+import FormText from '../components/FormWidgets/FormText'
 
 class NewWidget extends React.Component {
   render() {
@@ -60,7 +62,9 @@ class AddWidget extends React.Component {
                     <option value="Gauge">Gauge</option>
                     <option value="GaugeSpeed">Gauge Speed</option>
                     <option value="Progress">Progress</option>
+                    <option value="ProgressBar">Progress Bar</option>
                     <option value="CardBox">Card Box</option>
+                    <option value="Text">Text</option>
                   </select>
                 </div>
               </div>
@@ -85,7 +89,12 @@ class FormSelected extends React.Component {
       return <FormCardBox machineId={this.props.machineId} />
     } else if (this.props.Selected === 'GaugeSpeed') {
       return <FormGaugeSpeed machineId={this.props.machineId} />
-    } else {
+    } else if (this.props.Selected === 'ProgressBar') {
+      return <FormProgressBar machineId={this.props.machineId} />
+    } else if (this.props.Selected === 'Text') {
+      return <FormText machineId={this.props.machineId} />
+    }
+    else {
       return <h1>SS</h1>
     }
   }

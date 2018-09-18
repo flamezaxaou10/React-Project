@@ -8,3 +8,7 @@
 .border-10 {
   border-top-width: 10px !important;
 }
+
+.widgetCard {
+  height: 300px !important;
+}

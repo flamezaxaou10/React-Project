@@ -1,5 +1,6 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
+import Clock from 'react-live-clock'
 
 class Header extends React.Component {
   render() {
@@ -17,6 +18,13 @@ class Header extends React.Component {
               </li>
               <li className="nav-item active">
                 <Link to="/ChartDB" className="nav-link">Chart of DB</Link>
+              </li>
+              <li className="nav-item justify-content-end">
+                <Clock
+                  className="nav-link text-body"
+                  ticking={true}
+                  format={'dddd, MMMM Mo, YYYY, h:mm:ss A'}
+                  timezone={'Asia/Thailand'} />
               </li>
             </ul>
           </div>

@@ -22,12 +22,12 @@ class Gauge extends React.Component {
 
     return (
       <div className="CardBox col-xl-3 col-lg-4 col-md-6 col-sm-12 text-body mb-3">
-        <div className="card border-info shadow rounded-0 border-10">
+        <div className="card border-primary shadow rounded-0 border-10 widgetCard">
           <h5 className="card-header">{payload.title}</h5>
-          <div className="card-body">
-            <div className="row">
+          <div className="card-body ">
+            <div className="row pt-5">
               <div className="col-6 text-right">
-                <h1>{payload.value}</h1>
+                <h2>{parseFloat(payload.value).toFixed(2)}</h2>
               </div>
               <div className="col-2 text-left pt-4">
                 <h6>{payload.unit}</h6>
@@ -42,7 +42,7 @@ class Gauge extends React.Component {
           </div>
           <div className="card-footer text-right">
             <a href="/#" data-toggle="modal" data-target=".ModalCreate"><i className="fas fa-cog text-dark mr-3"></i></a>
-            <Link to={`/DeleteWidget/` + widgetId}><i className="fas fa-trash-alt text-danger"></i></Link>
+            <Link to={`/DeleteWidget/` + widgetId} ><i className="fas fa-trash-alt text-danger"></i></Link>
           </div>
         </div>
       </div>

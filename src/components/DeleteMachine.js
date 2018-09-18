@@ -1,11 +1,12 @@
 import React from 'react'
 import MachineStore from '../store/MachineStore'
-import { Redirect } from 'react-router-dom'
+//import { Redirect } from 'react-router-dom'
 
 class DeleteMachine extends React.Component {
   render () {
+    MachineStore.getData = true
     MachineStore.delMachineToDB(this.props.match.params.machineId)
-    return <Redirect to='/' />
+    return window.location.replace('/')
   }
 }
 

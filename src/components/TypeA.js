@@ -1,8 +1,10 @@
 import React from 'react'
-import MachineStore from '../store/MachineStore'
 import ReactSpeedometer from "react-d3-speedometer"
 import CanvasGauge from 'react-canvas-gauge'
 import LineChart from './LineChart'
+import axios from 'axios'
+
+let server = 'http://172.18.42.220:5582/machine'
 
 class TypeA extends React.Component {
   constructor(props) {
@@ -15,7 +17,12 @@ class TypeA extends React.Component {
       aval: 0,
       prod: 0,
       qual: 0,
-      currentTime: 1
+      currentTime: 0,
+      machine: {
+        machineId: this.props.match.params.machineId,
+        machineName: 'Loading...',
+        machineType: 'Loading...'
+      }
     }
   }
 
@@ -34,6 +41,19 @@ class TypeA extends React.Component {
         oee: (((this.state.aval / 100) * (this.state.prod / 100) * (this.state.qual / 100)) * 100).toFixed(2)
       })
     }, 3000)
+
+    axios.get(server + '/' + this.state.machine.machineId).then(function (res) {
+      this.setState({
+        machine: {
+          machineId: res.data._id,
+          machineName: res.data.machineName,
+          machineType: res.data.machineType
+        }
+      })
+    }.bind(this)).catch(function (err) {
+      console.log(err)
+    })
+
   }
 
   componentWillUnmount() {
@@ -41,23 +61,18 @@ class TypeA extends React.Component {
   }
 
   render() {
-    let machineId = this.props.match.params.machineId
-    let machines = MachineStore.machines
-    console.log(machines)
-    let machine = machines.filter((machine) =>
-      machine._id === (machineId)
-    )
+    const machine = this.state.machine
     return (
       <div className="TypeA text-white justify-content-center">
         <div className="row">
           <div className="col-4">
-            <h4>Machine ID : {machineId}</h4>
+            <h4>Machine ID : {machine.machineId}</h4>
           </div>
           <div className="col-4">
-            <h4>Machine Name : {machine[0].machineName}</h4>
+            <h4>Machine Name : {machine.machineName}</h4>
           </div>
           <div className="col-4">
-            <h4>Machine Type : {machine[0].machineType}</h4>
+            <h4>Machine Type : {machine.machineType}</h4>
           </div>
         </div>
         <hr className="bg-white" />

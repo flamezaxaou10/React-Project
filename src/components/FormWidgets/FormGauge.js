@@ -49,7 +49,7 @@ class FormGauge extends React.Component {
       <div className="FormGuage container">
         <form onSubmit={this.handleSubmit.bind(this)}>
           <div className="form-group row">
-            <label htmlFor="machineType" className="col-3 col-form-label">
+            <label htmlFor="title" className="col-3 col-form-label">
               Title :
           </label>
             <div className="col-9">
@@ -63,7 +63,7 @@ class FormGauge extends React.Component {
             </div>
           </div>
           <div className="form-group row">
-            <label htmlFor="machineType" className="col-3 col-form-label">
+            <label htmlFor="value" className="col-3 col-form-label">
               Value :
           </label>
             <div className="col-9">
@@ -77,7 +77,7 @@ class FormGauge extends React.Component {
             </div>
           </div>
           <div className="form-group row">
-            <label htmlFor="machineType" className="col-3 col-form-label">
+            <label htmlFor="unit" className="col-3 col-form-label">
               Unit :
           </label>
             <div className="col-9">
@@ -91,7 +91,7 @@ class FormGauge extends React.Component {
             </div>
           </div>
           <div className="form-group row">
-            <label htmlFor="machineType" className="col-3 col-form-label">
+            <label htmlFor="minvalue" className="col-3 col-form-label">
               Min Value :
           </label>
             <div className="col-9">
@@ -105,7 +105,7 @@ class FormGauge extends React.Component {
             </div>
           </div>
           <div className="form-group row">
-            <label htmlFor="machineType" className="col-3 col-form-label">
+            <label htmlFor="maxvalue" className="col-3 col-form-label">
               Max Value :
           </label>
             <div className="col-9">
@@ -119,7 +119,7 @@ class FormGauge extends React.Component {
             </div>
           </div>
           <div className="form-group row">
-            <label htmlFor="machineType" className="col-3 col-form-label">
+            <label htmlFor="setColor" className="col-3 col-form-label">
               set Color :
           </label>
             <div className="col-9">

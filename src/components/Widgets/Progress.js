@@ -2,13 +2,13 @@ import React from 'react'
 import CanvasGauge from 'react-canvas-gauge'
 import { Link } from 'react-router-dom'
 
-class Gauge extends React.Component {
+class Progress extends React.Component {
   render() {
     const payload = this.props.payload
     const widgetId = this.props.widgetId
     return (
       <div className="Progress col-xl-3 col-lg-4 col-md-6 col-sm-12 text-body mb-3">
-        <div className="card border-secondary shadow rounded-0 border-10">
+        <div className="card border-info shadow rounded-0 border-10 widgetCard">
           <h5 className="card-header">{payload.title}</h5>
           <div className="card-body">
             <CanvasGauge
@@ -35,4 +35,4 @@ class Gauge extends React.Component {
   }
 }
 
-export default Gauge
+export default Progress

@@ -25,7 +25,7 @@ class ChartDB extends React.Component {
             }} />
           </div>
         </div>
-        {/* <div className="row mb-4">
+        <div className="row mb-4">
           <div className="col-12">
             <Table Table={{
               id: "table2",
@@ -74,7 +74,7 @@ class ChartDB extends React.Component {
               mapType: ""
             }} />
           </div>
-        </div> */}
+        </div>
       </div>
     )
   }
@@ -85,7 +85,7 @@ class Table extends React.Component {
     super(props)
     this.state = {
       datas: [],
-      typeFilter: 'filterMonth',
+      typeFilter: 'filterWeek',
       filterDayData: [],
       filterWeekData: [],
       filterMonthData: [],
@@ -93,12 +93,12 @@ class Table extends React.Component {
   }
 
   componentDidMount() {
-    axios.get('http://172.18.42.222:5582/dht/last30days/' + this.props.Table.id).then(function (res) {
+    axios.get('http://172.18.42.222:5582/dht/filterChart/' + this.props.Table.id).then(function (res) {
       this.setState({
         datas: res.data[0],
-        filterMonthData: res.data[0],
-        filterWeekData: res.data[1],
-        filterDayData: res.data[2],
+        filterWeekData: res.data[0],
+        filterDayData: res.data[1],
+        filterHourData: res.data[2],
       })
       console.log(res.data[0])
       console.log(res.data[1])
@@ -128,9 +128,9 @@ class Table extends React.Component {
     if (this.state.typeFilter === 'filterDay')
       return moment(tickItem).format('HH:00')
     else if (this.state.typeFilter === 'filterWeek')
-      return moment(tickItem).format('DD-MMM-YY')
-    else if (this.state.typeFilter === 'filterMonth')
       return moment(tickItem).format('DD-MM-YY')
+    else if (this.state.typeFilter === 'filterHour')
+      return moment(tickItem).format('HH:mm')
   }
 
   handleFilterDay() {
@@ -147,36 +147,36 @@ class Table extends React.Component {
     })
   }
 
-  handleFilterMonth() {
+  handleFilterHour() {
     this.setState({
-      typeFilter: 'filterMonth',
-      datas: this.state.filterMonthData
+      typeFilter: 'filterHour',
+      datas: this.state.filterHourData
     })
   }
 
   render() {
     return (
-      <div className="Table1" >
+      <div className="Table1 bg-white text-body pr-5 pb-4 pt-4 shadow" >
         <h4>{this.props.Table.name}</h4>
         <div className="col-12">
           <div className="btn-group mb-2" role="group" aria-label="DayMonthYear">
             <button type="button"
               className="btn btn-secondary"
+              onClick={this.handleFilterHour.bind(this)}
+            >
+              Last 1 hour
+            </button>
+            <button type="button"
+              className="btn btn-secondary"
               onClick={this.handleFilterDay.bind(this)}
             >
-              Last 24 hours
+              Last 24 Hours
             </button>
             <button type="button"
               className="btn btn-secondary"
               onClick={this.handleFilterWeek.bind(this)}
             >
-              Last 7 days
-            </button>
-            <button type="button"
-              className="btn btn-secondary"
-              onClick={this.handleFilterMonth.bind(this)}
-            >
-              Last Month
+              Last 7 Days
             </button>
           </div>
 

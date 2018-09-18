@@ -4,7 +4,7 @@ import MachineStore from '../store/MachineStore'
 import ButtonAdd from './ButtonAdd'
 import axios from 'axios'
 
-let server = 'http://localhost:5582/machine'
+let server = 'http://172.18.42.220:5582/machine'
 
 class Main extends React.Component {
   constructor(props) {
@@ -35,7 +35,6 @@ class Main extends React.Component {
   }
 
   componentWillUnmount () {
-    console.log("Unmount")
     this.setState({
       listMachine: []
     })
@@ -46,12 +45,12 @@ class Main extends React.Component {
 
 
   render() {
-
+    const listMachine = this.state.listMachine
     return (
       <div className="Main">
         <h3 className="text-white">Dashboard</h3>
         <div className="row justify-content-center">
-          {this.state.listMachine}
+          {listMachine}
           <ButtonAdd callback={this.newRender} MachineStore={MachineStore} />
         </div>
       </div>

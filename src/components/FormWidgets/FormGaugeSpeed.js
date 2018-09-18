@@ -51,7 +51,7 @@ class FormGaugeSpeed extends React.Component {
       <div className="FormGuage container">
         <form onSubmit={this.handleSubmit.bind(this)}>
           <div className="form-group row">
-            <label htmlFor="machineType" className="col-3 col-form-label">
+            <label htmlFor="title" className="col-3 col-form-label">
               Title :
           </label>
             <div className="col-9">
@@ -65,7 +65,7 @@ class FormGaugeSpeed extends React.Component {
             </div>
           </div>
           <div className="form-group row">
-            <label htmlFor="machineType" className="col-3 col-form-label">
+            <label htmlFor="value" className="col-3 col-form-label">
               Value :
           </label>
             <div className="col-9">
@@ -79,7 +79,7 @@ class FormGaugeSpeed extends React.Component {
             </div>
           </div>
           <div className="form-group row">
-            <label htmlFor="machineType" className="col-3 col-form-label">
+            <label htmlFor="unit" className="col-3 col-form-label">
               Unit :
           </label>
             <div className="col-9">
@@ -93,7 +93,7 @@ class FormGaugeSpeed extends React.Component {
             </div>
           </div>
           <div className="form-group row">
-            <label htmlFor="machineType" className="col-3 col-form-label">
+            <label htmlFor="minvalue" className="col-3 col-form-label">
               Min Value :
           </label>
             <div className="col-9">
@@ -107,7 +107,7 @@ class FormGaugeSpeed extends React.Component {
             </div>
           </div>
           <div className="form-group row">
-            <label htmlFor="machineType" className="col-3 col-form-label">
+            <label htmlFor="maxvalue" className="col-3 col-form-label">
               Max Value :
           </label>
             <div className="col-9">
@@ -121,7 +121,7 @@ class FormGaugeSpeed extends React.Component {
             </div>
           </div>
           <div className="form-group row">
-            <label htmlFor="machineType" className="col-3 col-form-label">
+            <label htmlFor="segments" className="col-3 col-form-label">
               Segments :
           </label>
             <div className="col-9">
@@ -135,7 +135,7 @@ class FormGaugeSpeed extends React.Component {
             </div>
           </div>
           <div className="form-group row">
-            <label htmlFor="machineType" className="col-3 col-form-label">
+            <label htmlFor="startColor" className="col-3 col-form-label">
               Start Color :
           </label>
             <div className="col-9">
@@ -149,7 +149,7 @@ class FormGaugeSpeed extends React.Component {
             </div>
           </div>
           <div className="form-group row">
-            <label htmlFor="machineType" className="col-3 col-form-label">
+            <label htmlFor="endColor" className="col-3 col-form-label">
               End Color :
           </label>
             <div className="col-9">
@@ -163,7 +163,7 @@ class FormGaugeSpeed extends React.Component {
             </div>
           </div>
           <div className="form-group row">
-            <label htmlFor="machineType" className="col-3 col-form-label">
+            <label htmlFor="textColor" className="col-3 col-form-label">
               Text Color :
           </label>
             <div className="col-9">

@@ -38,7 +38,7 @@ class FormCardBox extends React.Component {
       <div className="FormCardBox container">
         <form onSubmit={this.handleSubmit.bind(this)}>
           <div className="form-group row">
-            <label htmlFor="machineType" className="col-3 col-form-label">
+            <label htmlFor="title" className="col-3 col-form-label">
               Title :
           </label>
             <div className="col-9">
@@ -52,7 +52,7 @@ class FormCardBox extends React.Component {
             </div>
           </div>
           <div className="form-group row">
-            <label htmlFor="machineType" className="col-3 col-form-label">
+            <label htmlFor="value" className="col-3 col-form-label">
               Value :
           </label>
             <div className="col-9">
@@ -66,7 +66,7 @@ class FormCardBox extends React.Component {
             </div>
           </div>
           <div className="form-group row">
-            <label htmlFor="machineType" className="col-3 col-form-label">
+            <label htmlFor="unit" className="col-3 col-form-label">
               Unit :
           </label>
             <div className="col-9">
