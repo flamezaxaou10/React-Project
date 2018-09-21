@@ -89,11 +89,12 @@ class Table extends React.Component {
       filterDayData: [],
       filterWeekData: [],
       filterMonthData: [],
+      table1: ''
     }
   }
 
   componentDidMount() {
-    axios.get('http://172.18.42.222:5582/dht/filterChart/' + this.props.Table.id).then(function (res) {
+    axios.get('http://localhost:5582/dht/filterChart/' + this.props.Table.id).then(function (res) {
       this.setState({
         datas: res.data[0],
         filterWeekData: res.data[0],
@@ -106,6 +107,13 @@ class Table extends React.Component {
     }.bind(this)).catch(function (error) {
       console.log(error)
     })
+
+    setInterval(axios.get('http://localhost:5582/netpie/table1').then(function (res) {
+      this.setState({
+        table1: res.data[0].payload
+      })
+    }.bind(this)), 2000)
+    
 
     // axios.get('http://172.18.42.222:5582/dht/last24hr/' + this.props.Table.id).then(function (res) {
     //   this.setState({
@@ -158,6 +166,7 @@ class Table extends React.Component {
     return (
       <div className="Table1 bg-white text-body pr-5 pb-4 pt-4 shadow" >
         <h4>{this.props.Table.name}</h4>
+        <h4>{this.state.table1}</h4>
         <div className="col-12">
           <div className="btn-group mb-2" role="group" aria-label="DayMonthYear">
             <button type="button"
@@ -198,7 +207,7 @@ class Table extends React.Component {
               tickFormatter={this.formatXAxis}
               domain={['dataMin', 'dataMax']}
             />
-            <YAxis 
+            <YAxis
               domain={[0, 100]}
             />
             <Legend />

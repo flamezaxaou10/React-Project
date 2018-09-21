@@ -4,7 +4,7 @@ import MachineStore from '../store/MachineStore'
 import ButtonAdd from './ButtonAdd'
 import axios from 'axios'
 
-let server = 'http://172.18.42.220:5582/machine'
+let server = 'http://localhost:5582/machine'
 
 class Main extends React.Component {
   constructor(props) {

@@ -24,7 +24,7 @@ class Header extends React.Component {
                   className="nav-link text-body"
                   ticking={true}
                   format={'dddd, MMMM Mo, YYYY, h:mm:ss A'}
-                  timezone={'Asia/Thailand'} />
+                  timezone={'Asia/Bangkok'} />
               </li>
             </ul>
           </div>

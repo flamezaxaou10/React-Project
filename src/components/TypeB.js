@@ -6,7 +6,7 @@ import CanvasGauge from 'react-canvas-gauge'
 import axios from 'axios'
 import CNC from '../assets/CNC.jpg'
 
-let server = 'http://172.18.42.220:5582/machine'
+let server = 'http://localhost:5582/machine'
 
 class TypeB extends React.Component {
   constructor(props) {

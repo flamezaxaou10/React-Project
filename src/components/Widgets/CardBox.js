@@ -1,13 +1,24 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
+import axios from 'axios'
 
-class Gauge extends React.Component {
-  constructor(props){
+class CardBox extends React.Component {
+  constructor(props) {
     super(props)
     this.state = {
-      value: props.payload.value,
-      previousValue : 0
+      value: 0,
+      previousValue: 0
     }
+  }
+
+  componentDidMount() {
+    axios.get('http://localhost:5582/netpie/' + this.props.payload.value).then(function (res) {
+      const data = res.data[0].payload.split(",")
+      this.setState({
+        value: data[0]
+      })
+      console.log(data)
+    }.bind(this))
   }
 
 
@@ -25,9 +36,15 @@ class Gauge extends React.Component {
         <div className="card border-primary shadow rounded-0 border-10 widgetCard">
           <h5 className="card-header">{payload.title}</h5>
           <div className="card-body ">
-            <div className="row pt-5">
+            <div className="row pb-2">
+              <div className="col-6">
+                <i className={`fas fa-3x fa-` + payload.icon}></i>
+              </div>
+            </div>
+            <div className="row">
               <div className="col-6 text-right">
-                <h2>{parseFloat(payload.value).toFixed(2)}</h2>
+
+                <h2>{parseFloat(state.value).toFixed(2)}</h2>
               </div>
               <div className="col-2 text-left pt-4">
                 <h6>{payload.unit}</h6>
@@ -50,4 +67,4 @@ class Gauge extends React.Component {
   }
 }
 
-export default Gauge
+export default CardBox

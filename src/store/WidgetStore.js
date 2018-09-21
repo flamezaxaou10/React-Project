@@ -8,7 +8,7 @@ import GaugeSpeed from '../components/Widgets/GaugeSpeed'
 import ProgressBar from '../components/Widgets/ProgressBar'
 import Text from '../components/Widgets/Text'
 
-let server = "http://172.18.42.220:5582/widget"
+let server = "http://localhost:5582/widget"
 
 class WidgetStore {
   @observable widgets = []

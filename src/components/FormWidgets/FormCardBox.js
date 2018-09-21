@@ -8,6 +8,7 @@ class FormCardBox extends React.Component {
       title: 'Card Box',
       value: 0,
       unit: '',
+      icon: '',
       status: true,
       machineId: this.props.machineId
     }
@@ -26,7 +27,8 @@ class FormCardBox extends React.Component {
       typeWidget: 'CardBox',
       title: this.state.title,
       value: this.state.value,
-      unit: this.state.unit
+      unit: this.state.unit,
+      icon: this.state.icon
     }
     console.log(payload)
     WidgetStore.addWidgetToDB(this.props.machineId, payload)
@@ -76,6 +78,21 @@ class FormCardBox extends React.Component {
                 className="form-control"
                 value={payload.unit}
                 onChange={this.handlePayload}
+              />
+            </div>
+          </div>
+          <div className="form-group row">
+            <label htmlFor="unit" className="col-3 col-form-label">
+              Icon :
+          </label>
+            <div className="col-9">
+              <input
+                name="icon"
+                type="text"
+                className="form-control"
+                value={payload.icon}
+                onChange={this.handlePayload}
+                placeholder="fontAwesome :: thermometer-half"
               />
             </div>
           </div>

@@ -4,7 +4,7 @@ import CanvasGauge from 'react-canvas-gauge'
 import LineChart from './LineChart'
 import axios from 'axios'
 
-let server = 'http://172.18.42.220:5582/machine'
+let server = 'http://localhost:5582/machine'
 
 class TypeA extends React.Component {
   constructor(props) {

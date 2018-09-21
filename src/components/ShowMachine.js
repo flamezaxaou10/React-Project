@@ -4,7 +4,7 @@ import WidgetStore from '../store/WidgetStore'
 // import MachineStore from '../store/MachineStore'
 import axios from 'axios'
 
-let server = "http://172.18.42.220:5582"
+let server = "http://localhost:5582"
 
 
 class ShowMachine extends React.Component {
