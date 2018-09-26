@@ -15,7 +15,7 @@ class ButtonAdd extends React.Component {
             <img width="60px" src={circleadd} alt="" />
           </button>
         </p>
-        <CreateMachine MachineStore={this.props.MachineStore} callback={this.props.callback} />
+        <CreateMachine MachineStore={this.props.MachineStore} />
       </div>
     )
   }

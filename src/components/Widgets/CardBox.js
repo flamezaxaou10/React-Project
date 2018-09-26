@@ -1,6 +1,6 @@
 import React from 'react'
-import { Link } from 'react-router-dom'
 import axios from 'axios'
+import WidgetStore from '../../store/WidgetStore'
 
 class CardBox extends React.Component {
   constructor(props) {
@@ -9,6 +9,11 @@ class CardBox extends React.Component {
       value: 0,
       previousValue: 0
     }
+  }
+
+  delWidget() {
+    const widgetId = this.props.widgetId
+    WidgetStore.delWidgetToDB(widgetId)
   }
 
   componentDidMount() {
@@ -24,7 +29,6 @@ class CardBox extends React.Component {
 
   render() {
     const payload = this.props.payload
-    const widgetId = this.props.widgetId
     const state = this.state
 
     let arrow = 'up text-success'
@@ -58,7 +62,7 @@ class CardBox extends React.Component {
           </div>
           <div className="card-footer text-right">
             <a href="/#" data-toggle="modal" data-target=".ModalCreate"><i className="fas fa-cog text-dark mr-3"></i></a>
-            <Link to={`/DeleteWidget/` + widgetId} ><i className="fas fa-trash-alt text-danger"></i></Link>
+            <button className="btn" onClick={this.delWidget.bind(this)} ><i className="fas fa-trash-alt text-danger"></i></button>
           </div>
         </div>
       </div>

@@ -1,11 +1,15 @@
 import React from 'react'
-import { Link } from 'react-router-dom'
+import WidgetStore from '../../store/WidgetStore'
 import ReactSpeedometer from "react-d3-speedometer"
 
 class Gauge extends React.Component {
+  delWidget() {
+    const widgetId = this.props.widgetId
+    WidgetStore.delWidgetToDB(widgetId)
+  }
+
   render() {
     const payload = this.props.payload
-    const widgetId = this.props.widgetId
     return (
       <div className="GaugeSpeed col-xl-3 col-lg-4 col-md-6 col-sm-12 text-body mb-3">
         <div className="card border-secondary shadow rounded-0 border-10 widgetCard">
@@ -25,7 +29,7 @@ class Gauge extends React.Component {
           </div>
           <div className="card-footer text-right">
             <a href="/#" data-toggle="modal" data-target=".ModalCreate"><i className="fas fa-cog text-dark mr-3"></i></a>
-            <Link to={`/DeleteWidget/` + widgetId}><i className="fas fa-trash-alt text-danger"></i></Link>
+            <button className="btn" onClick={this.delWidget.bind(this)} ><i className="fas fa-trash-alt text-danger"></i></button>
           </div>
         </div>
       </div>

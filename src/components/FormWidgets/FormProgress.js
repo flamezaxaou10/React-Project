@@ -41,13 +41,23 @@ class FormProgress extends React.Component {
     }
     console.log(payload)
     WidgetStore.addWidgetToDB(this.props.machineId, payload)
-    window.location.reload()
+    this.setState({
+      title: 'Progress',
+      value: 0,
+      unit: '',
+      minvalue: '0',
+      maxvalue: '100',
+      setColor: '',
+      theme: 'light',
+      mode: 'progress',
+      enableAnimation: true
+    })
   }
   render() {
     const payload = this.state
     return (
       <div className="FormProgress container">
-        <form onSubmit={this.handleSubmit.bind(this)}>
+        <form>
           <div className="form-group row">
             <label htmlFor="title" className="col-3 col-form-label">
               Title :
@@ -136,6 +146,8 @@ class FormProgress extends React.Component {
             <div className="col-3">
               <button type="submit"
                 className="btn btn-secondary btn-block"
+                onClick={this.handleSubmit.bind(this)}
+                data-dismiss="modal" aria-label="Close"
               >
                 Add
               </button>

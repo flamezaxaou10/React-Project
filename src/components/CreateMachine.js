@@ -1,6 +1,5 @@
 import React from 'react'
 import { observer } from 'mobx-react'
-// import { Link } from 'react-router-dom'
 
 @observer
 class CreateMachine extends React.Component {
@@ -16,8 +15,6 @@ class CreateMachine extends React.Component {
     })
     this.props.MachineStore.getData = true
     this.props.MachineStore.addMachineToDB(payload)
-    this.props.callback()
-    //window.location.reload()
   }
 
   constructor(props) {
@@ -104,7 +101,7 @@ class CreateMachine extends React.Component {
 
                 <button type="submit" className="btn btn-secondary"
                   onClick={this.addMachine}
-                //data-dismiss="modal" aria-label="Close"
+                  data-dismiss="modal" aria-label="Close"
                 >
                   Add +
                 </button>

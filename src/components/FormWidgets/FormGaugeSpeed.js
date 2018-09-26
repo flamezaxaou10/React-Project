@@ -43,13 +43,25 @@ class FormGaugeSpeed extends React.Component {
     }
     console.log(payload)
     WidgetStore.addWidgetToDB(this.props.machineId, payload)
-    window.location.reload()
+    this.setState({
+      title: 'Gauge Speed',
+      value: 0,
+      unit: '',
+      width: 300,
+      height: 200,
+      minValue: '0',
+      maxValue: '100',
+      segments: 3,
+      startColor: '#00ee00',
+      endColor: '#ff0000',
+      textColor: '#000000'
+    })
   }
   render() {
     const payload = this.state
     return (
       <div className="FormGuage container">
-        <form onSubmit={this.handleSubmit.bind(this)}>
+        <form>
           <div className="form-group row">
             <label htmlFor="title" className="col-3 col-form-label">
               Title :
@@ -180,6 +192,8 @@ class FormGaugeSpeed extends React.Component {
             <div className="col-3">
               <button type="submit"
                 className="btn btn-secondary btn-block"
+                onClick={this.handleSubmit.bind(this)}
+                data-dismiss="modal" aria-label="Close"
               >
                 Add
               </button>

@@ -3,9 +3,10 @@ import NewWidgets from './NewWidget'
 import WidgetStore from '../store/WidgetStore'
 // import MachineStore from '../store/MachineStore'
 import axios from 'axios'
+import socketIOClient from 'socket.io-client'
 
-let server = "http://localhost:5582"
-
+let server = 'http://localhost:5582'
+const socket = socketIOClient(server)
 
 class ShowMachine extends React.Component {
   constructor(props) {
@@ -20,9 +21,21 @@ class ShowMachine extends React.Component {
     }
   }
 
+  response = () => {
+    socket.on('update-widget', (msg) => {
+      console.log('update-widget', msg)
+      this.componentWillUnmount()
+      this.componentWillMount()
+    })
+  }
+
+  componentDidMount() {
+    this.response()
+  }
+
   componentWillMount() {
     if (WidgetStore.getWidgets) {
-      axios.get(server + '/widget/' + this.state.machine.macihneId).then(function (res) {
+      axios.get(server + '/widget/' + this.props.match.params.machineId).then(function (res) {
         res.data.map((widget) =>
           WidgetStore.addWidgets(widget)
         )
@@ -35,7 +48,7 @@ class ShowMachine extends React.Component {
       WidgetStore.getWidgets = false
     }
 
-    axios.get(server + '/machine/' + this.state.machine.macihneId).then(function (res) {
+    axios.get(server + '/machine/' + this.props.match.params.machineId).then(function (res) {
       this.setState({
         machine: {
           machineId: res.data._id,

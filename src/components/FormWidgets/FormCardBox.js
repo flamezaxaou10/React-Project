@@ -32,13 +32,19 @@ class FormCardBox extends React.Component {
     }
     console.log(payload)
     WidgetStore.addWidgetToDB(this.props.machineId, payload)
-    window.location.reload()
+    this.setState({
+      title: 'Card Box',
+      value: 0,
+      unit: '',
+      icon: '',
+      status: true
+    })
   }
   render() {
     const payload = this.state
     return (
       <div className="FormCardBox container">
-        <form onSubmit={this.handleSubmit.bind(this)}>
+        <form>
           <div className="form-group row">
             <label htmlFor="title" className="col-3 col-form-label">
               Title :
@@ -100,6 +106,8 @@ class FormCardBox extends React.Component {
             <div className="col-3">
               <button type="submit"
                 className="btn btn-secondary btn-block"
+                onClick={this.handleSubmit.bind(this)}
+                data-dismiss="modal" aria-label="Close"
               >
                 Add
               </button>

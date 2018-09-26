@@ -3,8 +3,10 @@ import React from 'react'
 import MachineStore from '../store/MachineStore'
 import ButtonAdd from './ButtonAdd'
 import axios from 'axios'
+import socketIOClient from 'socket.io-client'
 
 let server = 'http://localhost:5582'
+const socket = socketIOClient(server)
 
 class Main extends React.Component {
   constructor(props) {
@@ -13,25 +15,25 @@ class Main extends React.Component {
       listMachine: MachineStore.listMachine
     }
   }
+
+  componentDidMount() {
+    this.response()
+  }
+
   componentWillMount() {
     if (MachineStore.getData) {
       axios.get(server + '/machine/').then(function (res) {
         res.data.map((machine) =>
           MachineStore.addMachine(machine)
         )
-        this.newRender()
+        this.setState({
+          listMachine: MachineStore.listMachine,
+        })
       }.bind(this)).catch(function (err) {
         console.log(err)
       })
       MachineStore.getData = false
     }
-  }
-
-  newRender = () => {
-    this.componentWillMount()
-    this.setState({
-      listMachine: MachineStore.listMachine,
-    })
   }
 
   componentWillUnmount() {
@@ -43,6 +45,14 @@ class Main extends React.Component {
     MachineStore.listMachine = []
   }
 
+  response = () => {
+    socket.on('update-machine', (msg) => {
+      console.log('update-machine', msg)
+      this.componentWillUnmount()
+      this.componentWillMount()
+    })
+  }
+
 
   render() {
     const listMachine = this.state.listMachine
@@ -51,7 +61,7 @@ class Main extends React.Component {
         <h3 className="text-white">Dashboard</h3>
         <div className="row justify-content-center">
           {listMachine}
-          <ButtonAdd callback={this.newRender} MachineStore={MachineStore} />
+          <ButtonAdd MachineStore={MachineStore} />
         </div>
       </div>
     )

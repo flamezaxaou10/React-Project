@@ -1,20 +1,14 @@
 import React from 'react'
-import { Link } from 'react-router-dom'
-import axios from 'axios'
+import WidgetStore from '../../store/WidgetStore'
 
 class Image extends React.Component {
-
-  componentDidMount() {
-    axios.get('http://localhost:5582/netpie/' + this.props.payload.value).then(function (res) {
-      const data = res.data[0].payload.split(",")
-      console.log(data)
-    })
+  delWidget() {
+    const widgetId = this.props.widgetId
+    WidgetStore.delWidgetToDB(widgetId)
   }
-
 
   render() {
     const payload = this.props.payload
-    const widgetId = this.props.widgetId
     return (
       <div className="Image col-xl-6 col-lg-6 col-md-9 col-sm-12 text-body mb-3">
         <div className="card border-primary shadow rounded-0 border-10">
@@ -24,7 +18,7 @@ class Image extends React.Component {
           </div>
           <div className="card-footer text-right">
             <a href="/#" data-toggle="modal" data-target=".ModalCreate"><i className="fas fa-cog text-dark mr-3"></i></a>
-            <Link to={`/DeleteWidget/` + widgetId} ><i className="fas fa-trash-alt text-danger"></i></Link>
+            <button className="btn" onClick={this.delWidget.bind(this)} ><i className="fas fa-trash-alt text-danger"></i></button>
           </div>
         </div>
       </div>
