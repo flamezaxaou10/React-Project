@@ -4,7 +4,7 @@ import MachineStore from '../store/MachineStore'
 import ButtonAdd from './ButtonAdd'
 import axios from 'axios'
 
-let server = 'http://localhost:5582/machine'
+let server = 'http://localhost:5582'
 
 class Main extends React.Component {
   constructor(props) {
@@ -15,7 +15,7 @@ class Main extends React.Component {
   }
   componentWillMount() {
     if (MachineStore.getData) {
-      axios.get(server + '/').then(function (res) {
+      axios.get(server + '/machine/').then(function (res) {
         res.data.map((machine) =>
           MachineStore.addMachine(machine)
         )
@@ -34,7 +34,7 @@ class Main extends React.Component {
     })
   }
 
-  componentWillUnmount () {
+  componentWillUnmount() {
     this.setState({
       listMachine: []
     })

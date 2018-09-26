@@ -6,16 +6,30 @@ class FormImage extends React.Component {
     super(props)
     this.state = {
       title: 'Image',
-      text: '',
+      file: 'empty',
       machineId: this.props.machineId
     }
     this.handlePayload = this.handlePayload.bind(this)
+    this.handleFile = this.handleFile.bind(this)
   }
 
   handlePayload(e) {
     this.setState({
       [e.target.name]: e.target.value
     })
+    console.log(this.state.file)
+  }
+  
+  handleFile(e) {
+    if (e.target.files && e.target.files[0]) {
+
+      var FR = new FileReader()
+      FR.onloadend = function () {
+        document.getElementById("b64").src = FR.result
+      }
+      FR.readAsDataURL(e.target.files[0])
+      console.log(FR)
+    }
   }
 
   handleSubmit(e) {
@@ -23,7 +37,7 @@ class FormImage extends React.Component {
     let payload = {
       typeWidget: 'Image',
       title: this.state.title,
-      text: this.state.text
+      file: document.getElementById("b64").src
     }
     console.log(payload)
     WidgetStore.addWidgetToDB(this.props.machineId, payload)
@@ -49,17 +63,21 @@ class FormImage extends React.Component {
             </div>
           </div>
           <div className="form-group row">
-            <label htmlFor="text" className="col-3 col-form-label">
-              Text :
+            <label htmlFor="file" className="col-3 col-form-label">
+              File :
           </label>
             <div className="col-9">
-              <textarea
-                name="text"
-                type="textarea"
-                className="form-control"
-                value={payload.percent}
-                onChange={this.handlePayload}
+              <input id="uploadImg"
+                name="path"
+                type="file"
+                className="form-control-file"
+                onChange={this.handleFile}
               />
+            </div>
+          </div>
+          <div className="row mb-3">
+            <div className="col-12">
+              <img src="" id="b64" height={250} alt=""/>
             </div>
           </div>
           <div className="row justify-content-end">

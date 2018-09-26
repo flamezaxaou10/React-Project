@@ -12,3 +12,7 @@
 .widgetCard {
   height: 300px !important;
 }
+
+.widgetImage {
+  height: 350px !important;
+}

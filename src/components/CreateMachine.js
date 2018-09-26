@@ -4,7 +4,7 @@ import { observer } from 'mobx-react'
 
 @observer
 class CreateMachine extends React.Component {
-  
+
   addMachine = () => {
     let payload = {
       machineName: this.state.machineName,
@@ -88,10 +88,10 @@ class CreateMachine extends React.Component {
                     Type :
                   </label>
                   <div className="col-9">
-                    <select className="custom-select" 
+                    <select className="custom-select"
                       name="machineType"
                       required
-                      onChange={this.handleMachineType.bind(this)}  
+                      onChange={this.handleMachineType.bind(this)}
                     >
                       <option value="A">Type A</option>
                       <option value="B">Type B</option>
@@ -104,7 +104,7 @@ class CreateMachine extends React.Component {
 
                 <button type="submit" className="btn btn-secondary"
                   onClick={this.addMachine}
-                  //data-dismiss="modal" aria-label="Close"
+                //data-dismiss="modal" aria-label="Close"
                 >
                   Add +
                 </button>

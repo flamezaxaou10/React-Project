@@ -30,7 +30,6 @@ class CardBox extends React.Component {
     let arrow = 'up text-success'
     if (state.value - state.previousValue >= 0) arrow = 'up text-success'
     else arrow = 'down text-danger'
-
     return (
       <div className="CardBox col-xl-3 col-lg-4 col-md-6 col-sm-12 text-body mb-3">
         <div className="card border-primary shadow rounded-0 border-10 widgetCard">

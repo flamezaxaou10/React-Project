@@ -7,6 +7,7 @@ import CardBox from '../components/Widgets/CardBox'
 import GaugeSpeed from '../components/Widgets/GaugeSpeed'
 import ProgressBar from '../components/Widgets/ProgressBar'
 import Text from '../components/Widgets/Text'
+import Image from '../components/Widgets/Image'
 
 let server = "http://localhost:5582/widget"
 
@@ -54,6 +55,8 @@ class WidgetStore {
         return <ProgressBar key={widget._id} payload={widget.widget} widgetId={widget._id} />
       else if (widget.widget.typeWidget === 'Text')
         return <Text key={widget._id} payload={widget.widget} widgetId={widget._id} />
+      else if (widget.widget.typeWidget === 'Image')
+        return <Image key={widget._id} payload={widget.widget} widgetId={widget._id} />
       else return <h1 className="text-white">No Show</h1>
     })
   }

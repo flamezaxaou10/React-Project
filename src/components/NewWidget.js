@@ -7,6 +7,7 @@ import FormCardBox from '../components/FormWidgets/FormCardBox'
 import FormGaugeSpeed from '../components/FormWidgets/FormGaugeSpeed'
 import FormProgressBar from '../components/FormWidgets/FormProgressBar'
 import FormText from '../components/FormWidgets/FormText'
+import FormImage from '../components/FormWidgets/FormImage'
 
 class NewWidget extends React.Component {
   render() {
@@ -65,6 +66,7 @@ class AddWidget extends React.Component {
                     <option value="ProgressBar">Progress Bar</option>
                     <option value="CardBox">Card Box</option>
                     <option value="Text">Text</option>
+                    <option value="Image">Image</option>
                   </select>
                 </div>
               </div>
@@ -93,7 +95,10 @@ class FormSelected extends React.Component {
       return <FormProgressBar machineId={this.props.machineId} />
     } else if (this.props.Selected === 'Text') {
       return <FormText machineId={this.props.machineId} />
+    } else if (this.props.Selected === 'Image') {
+      return <FormImage machineId={this.props.machineId} />
     }
+    
     else {
       return <h1>SS</h1>
     }
