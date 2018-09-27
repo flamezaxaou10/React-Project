@@ -22,7 +22,7 @@ class CardBox extends React.Component {
       this.setState({
         value: data[0]
       })
-      console.log(data)
+      
     }.bind(this))
   }
 
