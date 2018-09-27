@@ -15,13 +15,50 @@ class LineChart extends React.Component {
     super(props)
     this.state = {
       datas: [
-        {timestamp:Date.now(), temp: 20, humi:60},
-        {timestamp:Date.now(), temp: 25, humi:50},
-        {timestamp:Date.now(), temp: 22, humi:55},
-        {timestamp:Date.now(), temp: 23, humi:50},
-        {timestamp:Date.now(), temp: 23.5, humi:80},
-        {timestamp:Date.now(), temp: 24.5, humi:70},
-        {timestamp:Date.now(), temp: 24, humi:50},
+        [
+          1537760321379,
+          4
+        ],
+        [
+          1537761603571,
+          5
+        ],
+        [
+          1537760727922,
+          3
+        ],
+        [
+          1537760732274,
+          4.666666666666667
+        ],
+        [
+          1537760787525,
+          5
+        ],
+        [
+          1537760790901,
+          5
+        ],
+        [
+          1537760844203,
+          5.5
+        ],
+        [
+          1537760852008,
+          6
+        ],
+        [
+          1537760902338,
+          6
+        ],
+        [
+          1537760910098,
+          6
+        ],
+        [
+          1537760960424,
+          6
+        ]
       ],
       typeFilter: 'filterMonth',
       filterDayData: [],
@@ -31,14 +68,20 @@ class LineChart extends React.Component {
   }
 
   componentDidMount() {
-    
+
   }
 
   formatXAxis = (tickItem) => {
-    if (this.state.typeFilter === 'filterDay')
-      return moment(tickItem).format('HH:mm')
-    else if (this.state.typeFilter === 'filterMonth')
-      return moment(tickItem).format('DD-MM-YY')
+    switch (this.state.typeFilter) {
+      case 'filterDay':
+        return moment(tickItem).format('HH:mm')
+      case 'filterWeek':
+        return moment(tickItem).format('DD-MM-YY')
+      case 'filterMonth':
+        return moment(tickItem).format('DD-MM-YY')
+      default:
+        return 0
+    }
   }
 
   handleFilterDay() {
@@ -85,49 +128,17 @@ class LineChart extends React.Component {
               Last Month
             </button>
           </div>
-          {/* <LineChart width={1024} height={320} data={this.state.datas} margin={{ top: 0, right: 0, bottom: 0, left: 0 }}>
-            <Line
-              type="monotone"
-              name="Temperature"
-              dataKey="desired.temperature.celsius.value"
-              stroke={this.props.Table.color[0]}
-              dot={false}
-            />
-            <Line
-              type="monotone"
-              name="Humidity"
-              dataKey="desired.humidity.value"
-              stroke={this.props.Table.color[1]}
-              dot={false}
-            />
-            <CartesianGrid stroke="grey" strokeDasharray="2 2" />
-            <XAxis
-              dataKey="timestamp"
-              reversed={true}
-              tickFormatter={this.formatXAxis}
-              domain={[0, 'dataMax']}
-              minTickGap={70}
-            />
-            <YAxis />
-            <Tooltip />
-            <Legend />
-          </LineChart> */}
-          
           <AreaChart width={payload.width} height={200} data={this.state.datas}
-            margin={{top:0, bottom: 0, left: 0, right: 0}}
+            margin={{ top: 0, bottom: 0, left: 0, right: 0 }}
           >
             <defs>
-              <linearGradient id="colorTemp" x1="0" y1="0" x2="0" y2="1">
+              <linearGradient id="color" x1="0" y1="0" x2="0" y2="1">
                 <stop offset="5%" stopColor="#8884d8" stopOpacity={0.7} />
                 <stop offset="95%" stopColor="#8884d8" stopOpacity={0} />
               </linearGradient>
-              <linearGradient id="colorHumid" x1="0" y1="0" x2="0" y2="1">
-                <stop offset="5%" stopColor="#82ca9d" stopOpacity={0.7} />
-                <stop offset="95%" stopColor="#82ca9d" stopOpacity={0} />
-              </linearGradient>
             </defs>
             <XAxis
-              dataKey="timestamp"
+              dataKey="[0]"
               reversed={true}
               tickFormatter={this.formatXAxis}
               domain={['dataMin', 'dataMax']}
@@ -140,17 +151,10 @@ class LineChart extends React.Component {
             <Area
               name="Temperature"
               type="monotone"
-              dataKey="temp"
+              dataKey="[1]"
               stroke="#8884d8"
               fillOpacity={1}
-              fill="url(#colorTemp)" />
-            <Area
-              name="Humidity"
-              type="monotone"
-              dataKey="humi"
-              stroke="#82ca9d"
-              fillOpacity={1}
-              fill="url(#colorHumid)" />
+              fill="url(#color)" />
           </AreaChart>
         </div>
       </div>

@@ -50,7 +50,7 @@ class FormImage extends React.Component {
   render() {
     const payload = this.state
     return (
-      <div className="FormProgressBar container">
+      <div className="FormImage container">
         <form >
           <div className="form-group row">
             <label htmlFor="title" className="col-3 col-form-label">

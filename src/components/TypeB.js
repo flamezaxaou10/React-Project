@@ -213,7 +213,6 @@ class TypeB extends React.Component {
               <div className="card-body">
                 <LineChart payload={{
                   temp: this.state.temp,
-                  humi: this.state.humi,
                   timstamp: Date.now(),
                   width: 600
                 }} Table={{

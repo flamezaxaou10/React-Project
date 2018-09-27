@@ -8,6 +8,7 @@ import FormGaugeSpeed from '../components/FormWidgets/FormGaugeSpeed'
 import FormProgressBar from '../components/FormWidgets/FormProgressBar'
 import FormText from '../components/FormWidgets/FormText'
 import FormImage from '../components/FormWidgets/FormImage'
+import FormChart from '../components/FormWidgets/FormChart'
 
 class NewWidget extends React.Component {
   render() {
@@ -67,6 +68,7 @@ class AddWidget extends React.Component {
                     <option value="CardBox">Card Box</option>
                     <option value="Text">Text</option>
                     <option value="Image">Image</option>
+                    <option value="Chart">Chart</option>
                   </select>
                 </div>
               </div>
@@ -83,24 +85,25 @@ class AddWidget extends React.Component {
 
 class FormSelected extends React.Component {
   render() {
-    if (this.props.Selected === 'Gauge') {
-      return <FormGauge machineId={this.props.machineId} />
-    } else if (this.props.Selected === 'Progress') {
-      return <FormProgress machineId={this.props.machineId} />
-    } else if (this.props.Selected === 'CardBox') {
-      return <FormCardBox machineId={this.props.machineId} />
-    } else if (this.props.Selected === 'GaugeSpeed') {
-      return <FormGaugeSpeed machineId={this.props.machineId} />
-    } else if (this.props.Selected === 'ProgressBar') {
-      return <FormProgressBar machineId={this.props.machineId} />
-    } else if (this.props.Selected === 'Text') {
-      return <FormText machineId={this.props.machineId} />
-    } else if (this.props.Selected === 'Image') {
-      return <FormImage machineId={this.props.machineId} />
-    }
-    
-    else {
-      return <h1>SS</h1>
+    switch (this.props.Selected) {
+      case 'Gauge':
+        return <FormGauge machineId={this.props.machineId} />
+      case 'Progress':
+        return <FormProgress machineId={this.props.machineId} />
+      case 'CardBox':
+        return <FormCardBox machineId={this.props.machineId} />
+      case 'GaugeSpeed':
+        return <FormGaugeSpeed machineId={this.props.machineId} />
+      case 'ProgressBar':
+        return <FormProgressBar machineId={this.props.machineId} />
+      case 'Text':
+        return <FormText machineId={this.props.machineId} />
+      case 'Image':
+        return <FormImage machineId={this.props.machineId} />
+      case 'Chart':
+        return <FormChart machineId={this.props.machineId} />
+      default:
+        return <h2>Error</h2>
     }
   }
 }

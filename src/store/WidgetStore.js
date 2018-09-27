@@ -8,6 +8,7 @@ import GaugeSpeed from '../components/Widgets/GaugeSpeed'
 import ProgressBar from '../components/Widgets/ProgressBar'
 import Text from '../components/Widgets/Text'
 import Image from '../components/Widgets/Image'
+import Chart from '../components/Widgets/Chart'
 
 let server = "http://localhost:5582/widget"
 
@@ -43,21 +44,26 @@ class WidgetStore {
 
   showWidgets() {
     return this.widgets.map((widget) => {
-      if (widget.widget.typeWidget === "Gauge")
-        return <Gauge key={widget._id} payload={widget.widget} widgetId={widget._id} />
-      else if (widget.widget.typeWidget === "Progress")
-        return <Progress key={widget._id} payload={widget.widget} widgetId={widget._id} />
-      else if (widget.widget.typeWidget === "CardBox")
-        return <CardBox key={widget._id} payload={widget.widget} widgetId={widget._id} />
-      else if (widget.widget.typeWidget === 'GaugeSpeed')
-        return <GaugeSpeed key={widget._id} payload={widget.widget} widgetId={widget._id} />
-      else if (widget.widget.typeWidget === 'ProgressBar')
-        return <ProgressBar key={widget._id} payload={widget.widget} widgetId={widget._id} />
-      else if (widget.widget.typeWidget === 'Text')
-        return <Text key={widget._id} payload={widget.widget} widgetId={widget._id} />
-      else if (widget.widget.typeWidget === 'Image')
-        return <Image key={widget._id} payload={widget.widget} widgetId={widget._id} />
-      else return <h1 className="text-white">No Show</h1>
+      switch (widget.widget.typeWidget) {
+        case 'Gauge':
+          return <Gauge key={widget._id} payload={widget.widget} widgetId={widget._id} />
+        case 'Progress':
+          return <Progress key={widget._id} payload={widget.widget} widgetId={widget._id} />
+        case 'CardBox':
+          return <CardBox key={widget._id} payload={widget.widget} widgetId={widget._id} />
+        case 'GaugeSpeed':
+          return <GaugeSpeed key={widget._id} payload={widget.widget} widgetId={widget._id} />
+        case 'ProgressBar':
+          return <ProgressBar key={widget._id} payload={widget.widget} widgetId={widget._id} />
+        case 'Text':
+          return <Text key={widget._id} payload={widget.widget} widgetId={widget._id} />
+        case 'Image':
+          return <Image key={widget._id} payload={widget.widget} widgetId={widget._id} />
+        case 'Chart':
+          return <Chart key={widget._id} payload={widget.widget} widgetId={widget._id} />
+        default:
+          return <h2>Error</h2>
+      }
     })
   }
 }

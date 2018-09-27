@@ -60,7 +60,7 @@ class FormGaugeSpeed extends React.Component {
   render() {
     const payload = this.state
     return (
-      <div className="FormGuage container">
+      <div className="FormGuageSpeed container">
         <form>
           <div className="form-group row">
             <label htmlFor="title" className="col-3 col-form-label">

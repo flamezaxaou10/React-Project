@@ -2,12 +2,14 @@ import React from 'react'
 import { Link } from 'react-router-dom'
 import machinepng from '../assets/machine.png'
 import MachineStore from '../store/MachineStore'
-    
+
 class Machine extends React.Component {
   delMachine() {
     MachineStore.getData = true
     MachineStore.delMachineToDB(this.props.machine._id)
   }
+
+  
 
   render() {
     let machineId = this.props.machine._id
