@@ -1,18 +1,15 @@
 import React from 'react'
 import WidgetStore from '../../store/WidgetStore'
 
-class FormProgress extends React.Component {
+class FormList extends React.Component {
   constructor(props) {
     super(props)
     this.state = {
-      title: 'Progress Bar',
-      percent: 0,
+      title: 'List',
+      value: '',
+      text: '',
       unit: '',
-      strokeWidth: '8',
-      trailWidth: '8',
-      strokeColor: '#2db7f5',
-      trailColor: '#D9D9D9',
-      strokeLinecap: 'round',
+      icon: '',
       machineId: this.props.machineId
     }
     this.handlePayload = this.handlePayload.bind(this)
@@ -20,40 +17,34 @@ class FormProgress extends React.Component {
 
   handlePayload(e) {
     this.setState({
-        [e.target.name]: e.target.value
+      [e.target.name]: e.target.value
     })
   }
 
   handleSubmit(e) {
     e.preventDefault()
     let payload = {
-      typeWidget: 'ProgressBar',
+      typeWidget: 'List',
       title: this.state.title,
-      percent: this.state.percent,
+      value: this.state.value,
+      text: this.state.text,
       unit: this.state.unit,
-      strokeWidth: this.state.strokeWidth,
-      trailWidth: this.state.trailWidth,
-      strokeColor: this.state.strokeColor,
-      trailColor: this.state.trailColor,
-      strokeLinecap: this.state.strokeLinecap,
+      icon: this.state.icon
     }
     console.log(payload)
     WidgetStore.addWidgetToDB(this.props.machineId, payload)
     this.setState({
-      title: 'Progress Bar',
-      percent: 0,
+      title: 'Text',
+      value: '',
+      text: '',
       unit: '',
-      strokeWidth: '8',
-      trailWidth: '8',
-      strokeColor: '#2db7f5',
-      trailColor: '#D9D9D9',
-      strokeLinecap: 'round'
+      icon: ''
     })
   }
   render() {
     const payload = this.state
     return (
-      <div className="FormProgressBar container">
+      <div className="FormList container">
         <form>
           <div className="form-group row">
             <label htmlFor="title" className="col-3 col-form-label">
@@ -70,15 +61,44 @@ class FormProgress extends React.Component {
             </div>
           </div>
           <div className="form-group row">
-            <label htmlFor="percent" className="col-3 col-form-label">
+            <label htmlFor="icon" className="col-3 col-form-label">
+              ICON :
+          </label>
+            <div className="col-9">
+              <input
+                name="icon"
+                type="text"
+                className="form-control"
+                value={payload.icon}
+                onChange={this.handlePayload}
+                placeholder="fontAwesome :: lightbulb"
+              />
+            </div>
+          </div>
+          <div className="form-group row">
+            <label htmlFor="text" className="col-3 col-form-label">
+              Text :
+          </label>
+            <div className="col-9">
+              <input
+                name="text"
+                type="text"
+                className="form-control"
+                value={payload.text}
+                onChange={this.handlePayload}
+              />
+            </div>
+          </div>
+          <div className="form-group row">
+            <label htmlFor="value" className="col-3 col-form-label">
               Value :
           </label>
             <div className="col-9">
               <input
-                name="percent"
+                name="value"
                 type="text"
                 className="form-control"
-                value={payload.percent}
+                value={payload.value}
                 onChange={this.handlePayload}
               />
             </div>
@@ -98,46 +118,11 @@ class FormProgress extends React.Component {
             </div>
           </div>
           <div className="form-group row">
-            <label htmlFor="strokeColor" className="col-3 col-form-label">
-              Stroke Color :
+            <label htmlFor="exampleList" className="col-3 col-form-label">
+              Example List :
           </label>
-            <div className="col-9">
-              <input
-                name="strokeColor"
-                type="text"
-                className="form-control"
-                value={payload.strokeColor}
-                onChange={this.handlePayload}
-              />
-            </div>
-          </div>
-          <div className="form-group row">
-            <label htmlFor="trailColor" className="col-3 col-form-label">
-              Trial Color :
-          </label>
-            <div className="col-9">
-              <input
-                name="trailColor"
-                type="text"
-                className="form-control"
-                value={payload.trailColor}
-                onChange={this.handlePayload}
-              />
-            </div>
-          </div>
-          <div className="form-group row">
-            <label htmlFor="strokeLinecap" className="col-3 col-form-label">
-              Stroke Line cap :
-          </label>
-            <div className="col-9">
-              <input
-                name="strokeLinecap"
-                type="text"
-                className="form-control"
-                placeholder="`butt`, `square` or `round`."
-                value={payload.setColor}
-                onChange={this.handlePayload}
-              />
+            <div className="col-9 text-secondary">
+              {this.state.text + ' <Value> ' + this.state.unit} 
             </div>
           </div>
           <div className="row justify-content-end">
@@ -157,4 +142,4 @@ class FormProgress extends React.Component {
   }
 }
 
-export default FormProgress
+export default FormList

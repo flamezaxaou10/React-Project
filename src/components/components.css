@@ -17,11 +17,11 @@
   height: 350px !important;
 }
 
-[draggable] {
-	-moz-user-select: none;
-	-khtml-user-select: none;
-	-webkit-user-select: none;
-	user-select: none;
-	-khtml-user-drag: element;
-  -webkit-user-drag: element;
+.widgetChart {
+  height: 380px !important;
+}
+
+.list-group {
+  overflow-y: scroll;
+  height: 205px; 
 }

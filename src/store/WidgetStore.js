@@ -9,6 +9,7 @@ import ProgressBar from '../components/Widgets/ProgressBar'
 import Text from '../components/Widgets/Text'
 import Image from '../components/Widgets/Image'
 import Chart from '../components/Widgets/Chart'
+import List from '../components/Widgets/List'
 
 let server = "http://localhost:5582/widget"
 
@@ -61,6 +62,8 @@ class WidgetStore {
           return <Image key={widget._id} payload={widget.widget} widgetId={widget._id} />
         case 'Chart':
           return <Chart key={widget._id} payload={widget.widget} widgetId={widget._id} />
+        case 'List':
+          return <List key={widget._id} payload={widget.widget} widgetId={widget._id} />
         default:
           return <h2>Error</h2>
       }

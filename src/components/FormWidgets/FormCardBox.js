@@ -109,7 +109,7 @@ class FormCardBox extends React.Component {
                 onClick={this.handleSubmit.bind(this)}
                 data-dismiss="modal" aria-label="Close"
               >
-                Add
+                Save
               </button>
             </div>
           </div>

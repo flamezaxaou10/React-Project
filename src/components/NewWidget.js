@@ -9,6 +9,7 @@ import FormProgressBar from '../components/FormWidgets/FormProgressBar'
 import FormText from '../components/FormWidgets/FormText'
 import FormImage from '../components/FormWidgets/FormImage'
 import FormChart from '../components/FormWidgets/FormChart'
+import FormList from '../components/FormWidgets/FormList'
 
 class NewWidget extends React.Component {
   render() {
@@ -69,6 +70,7 @@ class AddWidget extends React.Component {
                     <option value="Text">Text</option>
                     <option value="Image">Image</option>
                     <option value="Chart">Chart</option>
+                    <option value="List">List</option>
                   </select>
                 </div>
               </div>
@@ -102,6 +104,8 @@ class FormSelected extends React.Component {
         return <FormImage machineId={this.props.machineId} />
       case 'Chart':
         return <FormChart machineId={this.props.machineId} />
+      case 'List':
+        return <FormList machineId={this.props.machineId} />
       default:
         return <h2>Error</h2>
     }

@@ -1,13 +1,14 @@
 import React from 'react'
-import axios from 'axios'
 import WidgetStore from '../../store/WidgetStore'
+import NETPIEMicrogear from '../../store/NETPIEMicrogear'
 
 class CardBox extends React.Component {
   constructor(props) {
     super(props)
     this.state = {
       value: 0,
-      previousValue: 0
+      previousValue: 0,
+      store: null
     }
   }
 
@@ -16,21 +17,28 @@ class CardBox extends React.Component {
     WidgetStore.delWidgetToDB(widgetId)
   }
 
-  componentDidMount() {
-    axios.get('http://localhost:5582/netpie/' + this.props.payload.value).then(function (res) {
-      const data = res.data[0].payload.split(",")
-      this.setState({
-        value: data[0]
+  componentWillMount() {
+    const payload = this.props.payload
+    const microgear = NETPIEMicrogear.microgear
+    const that = this
+    const subscribe = '/' + NETPIEMicrogear.APPID + '/' + payload.value
+    microgear.subscribe("/table1")
+    console.log(subscribe)
+    microgear.on('message', function (topic, msg) {
+      that.setState({
+        store: {
+          topic: topic + '',
+          msg: msg + ''
+        }
       })
-      
-    }.bind(this))
+    })
   }
 
 
   render() {
     const payload = this.props.payload
     const state = this.state
-
+    console.log(state.store)
     let arrow = 'up text-success'
     if (state.value - state.previousValue >= 0) arrow = 'up text-success'
     else arrow = 'down text-danger'

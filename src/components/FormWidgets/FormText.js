@@ -60,7 +60,7 @@ class FormText extends React.Component {
                 name="text"
                 type="textarea"
                 className="form-control"
-                value={payload.percent}
+                value={payload.text}
                 onChange={this.handlePayload}
               />
             </div>
@@ -72,7 +72,7 @@ class FormText extends React.Component {
                 onClick={this.handleSubmit.bind(this)}
                 data-dismiss="modal" aria-label="Close"
               >
-                Add
+                Save
               </button>
             </div>
           </div>
