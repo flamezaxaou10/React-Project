@@ -3,7 +3,7 @@ import React from 'react'
 import Machine from '../components/Machine'
 import axios from 'axios'
 
-let server = 'http://localhost:5582/machine'
+let server = 'http://localhost:5582/board'
 
 class MachineStore {
   @observable visualId = 0

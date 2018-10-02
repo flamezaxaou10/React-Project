@@ -8,7 +8,10 @@ class CardBox extends React.Component {
     this.state = {
       value: 0,
       previousValue: 0,
-      store: null
+      store: {
+        topic: "",
+        msg: ""
+      }
     }
   }
 
@@ -18,27 +21,31 @@ class CardBox extends React.Component {
   }
 
   componentWillMount() {
-    const payload = this.props.payload
     const microgear = NETPIEMicrogear.microgear
-    const that = this
-    const subscribe = '/' + NETPIEMicrogear.APPID + '/' + payload.value
-    microgear.subscribe("/table1")
-    console.log(subscribe)
-    microgear.on('message', function (topic, msg) {
-      that.setState({
+    microgear.on('closed', () => console.log('Close'))
+    microgear.on('message', this.onMessage.bind(this))
+  }
+
+  onMessage(topic, msg) {
+    const payload = this.props.payload
+    if (payload.value === topic) {
+      this.setState({
         store: {
-          topic: topic + '',
-          msg: msg + ''
+          topic: topic + "",
+          msg: msg + ""
         }
       })
-    })
+      this.setState({
+        value: this.state.store.msg.split(",")[0],
+        previousValue: this.state.value
+      })
+    }
   }
 
 
   render() {
     const payload = this.props.payload
     const state = this.state
-    console.log(state.store)
     let arrow = 'up text-success'
     if (state.value - state.previousValue >= 0) arrow = 'up text-success'
     else arrow = 'down text-danger'
@@ -54,7 +61,6 @@ class CardBox extends React.Component {
             </div>
             <div className="row">
               <div className="col-6 text-right">
-
                 <h2>{parseFloat(state.value).toFixed(2)}</h2>
               </div>
               <div className="col-2 text-left pt-4">

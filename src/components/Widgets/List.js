@@ -6,21 +6,39 @@ class Lists extends React.Component {
   constructor(props) {
     super(props)
     this.state = {
-      data: null
+      data: [],
+      store: {
+        topic: '',
+        msg: ''
+      }
     }
   }
 
   componentWillMount() {
     const microgear = NETPIEMicrogear.microgear
-    const that = this
-    microgear.on('message', function (topic, msg) {
-      that.setState({
-        data: {
-          topic: topic + '',
-          msg: msg + ''
-        }
+    microgear.on('closed', () => console.log('Close'))
+    microgear.on('message', this.onMessage.bind(this))
+  }
+
+  onMessage(topic, msg) {
+    const payload = this.props.payload
+    const strMsg = msg + ''
+    if (payload.value === topic) {
+      let data = this.state.data
+      data.push({
+        text: payload.text,
+        value: strMsg.split(",")[0],
+        unit: payload.unit,
+        timestamp: Date.now()
       })
-    })
+      this.setState({
+        store: {
+          topic: topic + "",
+          msg: msg + ""
+        },
+        data: data
+      })
+    }
   }
 
   delWidget() {
@@ -29,19 +47,19 @@ class Lists extends React.Component {
   }
 
   render() {
+    const data = this.state.data
     const payload = this.props.payload
-    console.log(this.state.data)
+    const icon = payload.icon
+    const mapList = data.map((payload, index) =>
+      <List key={index} payload={payload} icon={icon} />
+    )
     return (
       <div className="Progress col-xl-3 col-lg-4 col-md-6 col-sm-12 text-body mb-3">
         <div className="card border-info shadow rounded-0 border-10 widgetCard">
           <h5 className="card-header">{payload.title}</h5>
           <div className="card-body m-0 p-0">
             <ul className="list-group" data-spy="scroll">
-              <List payload={payload} />
-              <List payload={payload} />
-              <List payload={payload} />
-              <List payload={payload} />
-              <List payload={payload} />
+              {mapList.reverse()}
             </ul>
           </div>
           <div className="card-footer text-right">
@@ -57,20 +75,21 @@ class Lists extends React.Component {
 class List extends React.Component {
   render() {
     const payload = this.props.payload
+    const icon = this.props.icon
     return (
       <li className="list-group-item list-group-item-action">
         <div className="row">
           <div className="col-2 m-0 p-0">
             <span className="fa-layers fa-fw" >
-              <i className={'fas fa-2x fa-' + payload.icon}></i>
+              <i className={'fas fa-2x fa-' + icon}></i>
             </span>
-            <small>1m</small>
+            <small>{payload.timestamp}</small>
 
           </div>
           <div className="col-9 text-secondary">
-            {payload.text}
+            {payload.text + ' '}
             {payload.value}
-            {payload.unit}
+            {' ' + payload.unit}
           </div>
         </div>
       </li>

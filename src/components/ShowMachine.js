@@ -1,7 +1,7 @@
 import React from 'react'
 import NewWidgets from './NewWidget'
 import WidgetStore from '../store/WidgetStore'
-// import MachineStore from '../store/MachineStore'
+import NETPIEMicrogear from '../store/NETPIEMicrogear'
 import axios from 'axios'
 import socketIOClient from 'socket.io-client'
 
@@ -34,6 +34,7 @@ class ShowMachine extends React.Component {
   }
 
   componentWillMount() {
+    NETPIEMicrogear.createDatasource()
     if (WidgetStore.getWidgets) {
       axios.get(server + '/widget/' + this.props.match.params.machineId).then(function (res) {
         res.data.map((widget) =>
