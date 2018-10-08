@@ -1,6 +1,7 @@
 import React from 'react'
 import axios from 'axios'
 import moment from 'moment'
+import ButtonAdd from './ButtonAdd'
 import {
   XAxis,
   YAxis,
@@ -75,6 +76,7 @@ class ChartDB extends React.Component {
             }} />
           </div>
         </div>
+        <ButtonAdd  />
       </div>
     )
   }

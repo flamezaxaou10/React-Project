@@ -1,10 +1,8 @@
 import React from 'react'
 import circleadd from '../assets/circleadd.png'
-import './components.css'
-import CreateMachine from './CreateMachine'
-import { observer } from 'mobx-react'
+import '../components/components.css'
+// import CreateMachine from './CreateMachine'
 
-@observer
 class ButtonAdd extends React.Component {
   render() {
     return (
@@ -15,7 +13,7 @@ class ButtonAdd extends React.Component {
             <img width="60px" src={circleadd} alt="" />
           </button>
         </p>
-        <CreateMachine MachineStore={this.props.MachineStore} />
+        
       </div>
     )
   }
